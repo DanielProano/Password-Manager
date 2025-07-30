@@ -38,5 +38,9 @@ db.run(`
 	)
 `);
 
+app.get('/', (req, res) => {
+	res.send("Hi");
+});
+
 
 
