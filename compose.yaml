@@ -22,7 +22,8 @@ services:
   frontend:
     build:
       context: ./frontend
-      target: build
+    expose:
+      - "80"
     volumes:
       - ./frontend:/app
     restart: always 

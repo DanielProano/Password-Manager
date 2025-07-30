@@ -1,5 +1,5 @@
 
-FROM node:22.17.0-alpine as build
+FROM node:22.17.0-alpine AS build
 
 WORKDIR /usr/src/app
 
@@ -9,7 +9,7 @@ RUN npm ci
 COPY . .
 RUN npm run build
 
-FROM nginx:stable-alpine as production
+FROM nginx:stable-alpine AS production
 
 RUN rm -rf /usr/share/nginx/html/*
 
