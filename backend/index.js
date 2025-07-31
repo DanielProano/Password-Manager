@@ -31,8 +31,8 @@ db.run(`
 		username TEXT UNIQUE NOT NULL,
 		password TEXT NOT NULL
 	)`, err => {
-		if (err) console.error('Table Error', err);
-		else console.log('Table access successful')
+		if (err) console.error('Users table access failure:', err);
+		else console.log('Users table access successful')
 });
 
 app.get('/api/hello', (req, res) => {
@@ -65,3 +65,46 @@ app.post('/api/register', async (req, res) => {
 	}
 });
 
+app.post('/api/verify', async (req, res) => {
+	const { user, pass } = req.body
+
+	try {
+		const row = await new Promise((resolve, reject) => {
+			db.get('SELECT password FROM users WHERE username = ?', [user], (err, row) => {
+				if (err) reject(err);
+				else resolve(row);
+			});
+		});
+
+		if (!row) {
+			return res.status(401).json({ error: 'User not found'});
+		}
+
+		const isValid = bcrypt.compare(pass, row.password);
+
+		if (isValid) {
+			console.log('Correct Password, user authenticated.');
+			res.status(200).json({ message: 'Authentication succssful' });
+		} else {
+			console.log('Wrong Password, authentication failed.');
+			res.status(401).json({ error: 'Invalid password' });
+		}
+	} catch (err) {
+		console.error('Error occured:', err);
+		res.status(500).json({ error: 'Internal server error' });
+	}
+});
+
+db.run(
+	`CREATE TABLE IF NOT EXISTS vault (
+		id INTEGER PRIMARY KEY AUTOINCREMENT,
+		user_id INTEGER NOT NULL,
+		password TEXT NOT NULL,
+		FOREIGHN KEY(user_id) REFERENCES users(id)
+	)`, err => {
+		if (err) console.log("Vault table access failure:", err)
+		else console.log("Vault table access Success")
+});
+
+
+		
