@@ -33,14 +33,13 @@ app.post('/', (req, res) => {
 db.run(`
 	CREATE TABLE IF NOT EXISTS users (
 		id INTEGER PRIMARY KEY AUTOINCREMENT,
-		username TEXT UNQIUE NOT NULL,
+		username TEXT UNIQUE NOT NULL,
 		password TEXT NOT NULL
 	)
 `);
 
-app.get('/', (req, res) => {
-	res.send("Hi");
+app.get('/api/hello', (req, res) => {
+	res.send('Hello World');
 });
-
 
 
