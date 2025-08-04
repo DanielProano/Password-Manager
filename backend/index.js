@@ -80,10 +80,15 @@ app.post('/api/verify', async (req, res) => {
 			return res.status(401).json({ error: 'User not found'});
 		}
 
-		const isValid = bcrypt.compare(pass, row.password);
+		const isValid = await bcrypt.compare(pass, row.password);
 
 		if (isValid) {
 			console.log('Correct Password, user authenticated.');
+
+			const token = jwt.sign(
+				{ username: user, user_id: row.id },
+				
+				
 			res.status(200).json({ message: 'Authentication succssful' });
 		} else {
 			console.log('Wrong Password, authentication failed.');
