@@ -1,14 +1,13 @@
 const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
-const cors = require('cors');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
 
 const app = express();
-const PORT = 8080;
 
-app.use(cors());
 app.use(express.json());
+dotenv.config();
 
 app.listen(PORT, (error) => {
 	if (!error) {
@@ -87,9 +86,15 @@ app.post('/api/verify', async (req, res) => {
 
 			const token = jwt.sign(
 				{ username: user, user_id: row.id },
+				process.env.JWT_SECRET,
+				{ expiresIn: '1h' }
+			);
 				
-				
-			res.status(200).json({ message: 'Authentication succssful' });
+			res.status(200).json({
+				message: 'Authentication succssful',
+				token: token
+			});
+
 		} else {
 			console.log('Wrong Password, authentication failed.');
 			res.status(401).json({ error: 'Invalid password' });
@@ -111,5 +116,8 @@ db.run(
 		else console.log("Vault table access Success")
 });
 
-
-		
+app.post("/api/generateToken", (req, res) => {
+	let jwt_Key = process.env.JWT_SECRET;
+	let data = {
+				
+	
