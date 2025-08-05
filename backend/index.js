@@ -1,13 +1,14 @@
+const crypt = require('cryto');
 const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
+dotenv.config();
 
 const app = express();
 
 app.use(express.json());
-dotenv.config();
 
 app.listen(process.env.PORT, (error) => {
 	if (!error) {
@@ -22,6 +23,10 @@ const db = new sqlite3.Database('./passwords.db', (err) => {
 		return console.error('Database connection error', err.message);
 	}
 	console.log('Connected to Database')
+});
+
+app.get('/api/hello', (req, res) => {
+	res.send("Hello World");
 });
 
 db.run(`
@@ -65,7 +70,7 @@ app.post('/api/verify', async (req, res) => {
 
 	try {
 		const row = await new Promise((resolve, reject) => {
-			db.get('SELECT password FROM users WHERE username = ?', [user], (err, row) => {
+			db.get('SELECT id, password FROM users WHERE username = ?', [user], (err, row) => {
 				if (err) reject(err);
 				else resolve(row);
 			});
@@ -87,7 +92,7 @@ app.post('/api/verify', async (req, res) => {
 			);
 				
 			res.status(200).json({
-				message: 'Authentication succssful',
+				message: 'Authentication successful',
 				token: token
 			});
 
@@ -105,30 +110,14 @@ db.run(
 	`CREATE TABLE IF NOT EXISTS vault (
 		id INTEGER PRIMARY KEY AUTOINCREMENT,
 		user_id INTEGER NOT NULL,
+		service TEXT NOT NULL,
+		login TEXT NOT NULL,
 		password TEXT NOT NULL,
+		notes TEXT NOT NULL,
 		FOREIGN KEY(user_id) REFERENCES users(id)
 	)`, err => {
 		if (err) console.log("Vault table access failure:", err)
 		else console.log("Vault table access Success")
-});
-
-app.get("/api/validateToken", (req, res) => {
-	const header = req.headers['authorization'];
-	const token = header && header.split(' ')[1];
-	
-	let tokenKey = process.env.JWT_SECRET;
-	
-	try {
-		const verified = jwt.verify(token, tokenKey);
-		
-		if (verified) {
-			return res.send("Successfully Verified");
-		} else {
-			return res.status(401).send(error);
-		}
-	} catch(error) {
-		res.status(500).send(error);
-	}
 });
 
 function validateToken(req, res, next) {
@@ -144,4 +133,61 @@ function validateToken(req, res, next) {
 		return res.status(403).json({error: 'Invalid token'});
 	}
 }
+
+app.post('/api/vault', validateToken, (req, res) => {
+	const { service, login, password, notes } = req.body;
+	const userID = req.user.user_id;
+
+	if (!service || !login || !password) {
+		return res.status(400).json({ error: 'Missing fields' });
+	}
+
+	db.run(
+		`INSERT INTO vault (user_id, service, login, password, notes) VALUES (?, ?, ?, ?, ?)`,
+		[userID, service, login, password, notes],
+		function(err) {
+			if (err) {
+				console.error('Vault insert error:', err.message);
+				return res.status(500).json({ error: 'Problem saving password' });
+			}
 			
+			res.status(201).json({ message: 'Inserted Password successfully' });
+		}
+	);
+});	
+
+app.patch('/api/vault/:id', validateToken, (req, res) => {
+	const fields = ['service', 'login', 'password', 'notes'];
+
+	let updates = [];
+	let values = [];
+
+	for (const field of fields) {
+		if (req.body[field] !== undefined) {
+			updates.push(`${field} = ?`);
+			values.push(req.body[field]);
+		}
+	}
+
+	if (updates.length === 0) {
+		return res.status(400).json({ error: 'No updates provided' });
+	}
+
+	values.push(req.user.user_id, req.params.id);
+
+	const sql = `UPDATE vault SET ${updates.join(',')} WHERE user_id = ? AND id = ?`;
+
+	db.run(sql, values, function(err) {
+		if (err) {
+			console.error('Vault error:', err.message);
+			return res.status(500).json({ error: 'Database internal error' });
+		}
+
+		if (this.changes === 0) {
+			return res.status(404).json({ error: 'Vault error'});
+		}
+
+		return res.status(200).json({ message: 'Update Successful' });
+	});
+});
+		
