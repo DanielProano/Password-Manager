@@ -9,9 +9,9 @@ const app = express();
 app.use(express.json());
 dotenv.config();
 
-app.listen(PORT, (error) => {
+app.listen(process.env.PORT, (error) => {
 	if (!error) {
-		console.log(`Server is Running on port ${PORT}`);
+		console.log(`Server is Running on port ${process.env.PORT}`);
 	} else {
 		console.log("Error, server is not running", error);
 	}
@@ -32,10 +32,6 @@ db.run(`
 	)`, err => {
 		if (err) console.error('Users table access failure:', err);
 		else console.log('Users table access successful')
-});
-
-app.get('/api/hello', (req, res) => {
-	res.send('Hello World');
 });
 
 app.post('/api/register', async (req, res) => {
@@ -110,14 +106,42 @@ db.run(
 		id INTEGER PRIMARY KEY AUTOINCREMENT,
 		user_id INTEGER NOT NULL,
 		password TEXT NOT NULL,
-		FOREIGHN KEY(user_id) REFERENCES users(id)
+		FOREIGN KEY(user_id) REFERENCES users(id)
 	)`, err => {
 		if (err) console.log("Vault table access failure:", err)
 		else console.log("Vault table access Success")
 });
 
-app.post("/api/generateToken", (req, res) => {
-	let jwt_Key = process.env.JWT_SECRET;
-	let data = {
-				
+app.get("/api/validateToken", (req, res) => {
+	const header = req.headers['authorization'];
+	const token = header && header.split(' ')[1];
 	
+	let tokenKey = process.env.JWT_SECRET;
+	
+	try {
+		const verified = jwt.verify(token, tokenKey);
+		
+		if (verified) {
+			return res.send("Successfully Verified");
+		} else {
+			return res.status(401).send(error);
+		}
+	} catch(error) {
+		res.status(500).send(error);
+	}
+});
+
+function validateToken(req, res, next) {
+	const header = req.headers['authorization'];
+	const token = header && header.split(' ')[1];
+	const key = process.env.JWT_SECRET;
+
+	try {
+		const verified = jwt.verify(token, key);
+		req.user = verified;
+		next();
+	} catch (error) {
+		return res.status(403).json({error: 'Invalid token'});
+	}
+}
+			
