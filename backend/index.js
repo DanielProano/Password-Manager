@@ -10,6 +10,10 @@ const app = express();
 
 app.use(express.json());
 
+const algo = 'aes-256-cbc';
+const key = crypto.randomBytes(32);
+const iv = cryto.randomBytes(16);
+
 app.listen(process.env.PORT, (error) => {
 	if (!error) {
 		console.log(`Server is Running on port ${process.env.PORT}`);
