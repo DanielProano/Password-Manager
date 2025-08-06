@@ -18,7 +18,7 @@ function is_strong_password(password) {
 	const has_uppercase = /[A-Z]/.test(password);
 	const has_lowercase = /[a-z]/.test(password);
 	const has_number = /[0-9]/.test(password);
-	const has_special = /[!@#$%^&*()_-+=,.<>}{[]?'"]/.test(password);
+	const has_special = /[!@#$%^&*()_\-+=,.<>}{\[\]?'"]/.test(password);
 
 	return has_uppercase && has_lowercase && has_number && has_special;
 }
