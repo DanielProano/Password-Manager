@@ -1,4 +1,5 @@
 const express = require('express');
+const rate_limit = require('express-rate-limit');
 const sqlite3 = require('sqlite3').verbose();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -8,6 +9,27 @@ dotenv.config();
 const app = express();
 
 app.use(express.json());
+
+// Helper functions
+
+function is_strong_password(password) {
+	if (password.length < 8) return false;
+
+	const has_uppercase = /[A-Z]/.test(password);
+	const has_lowercase = /[a-z]/.test(password);
+	const has_number = /[0-9]/.test(password);
+	const has_special = /[!@#$%^&*()_-+=,.<>}{[]?'"]/.test(password);
+
+	return has_uppercase && has_lowercase && has_number && has_special;
+}
+
+const auth_limiter = rate_limit({
+	windowMs: 60 * 1000,
+	max: 5,
+	message: { error: 'Too many requests, try again later' },
+	standardHeaders: true,
+	legacyHeaders: false,
+});
 
 // Let app listen on a port
 
@@ -48,8 +70,12 @@ db.run(`
 
 // Function for user login
 
-app.post('/api/register', async (req, res) => {
+app.post('/api/register', auth_limiter, async (req, res) => {
 	const { user, pass } = req.body
+
+	if (!is_strong_password(pass)) {
+		return res.status(400).json({ error: 'Weak password' });
+	}
 
 	const saltRounds = 10
 
@@ -76,7 +102,7 @@ app.post('/api/register', async (req, res) => {
 
 // Function for verifying login
 
-app.post('/api/verify', async (req, res) => {
+app.post('/api/verify', auth_limiter, async (req, res) => {
 	const { user, pass } = req.body
 
 	try {
@@ -126,7 +152,7 @@ db.run(
 		service TEXT NOT NULL,
 		login TEXT NOT NULL,
 		password TEXT NOT NULL,
-		notes TEXT NOT NULL,
+		notes TEXT DEFAULT '',
 		FOREIGN KEY(user_id) REFERENCES users(id)
 	)`, err => {
 		if (err) console.log("Vault table access failure:", err)
@@ -151,7 +177,7 @@ function validateToken(req, res, next) {
 
 // Stores password info
 
-app.post('/api/vault', validateToken, async (req, res) => {
+app.post('/api/vault/store', validateToken, async (req, res) => {
 	const { service, login, password, notes } = req.body;
 	const userID = req.user.user_id;
 
@@ -175,7 +201,7 @@ app.post('/api/vault', validateToken, async (req, res) => {
 
 // Updates password info
 
-app.patch('/api/vault/:id', validateToken, async (req, res) => {
+app.patch('/api/vault/update/:id', validateToken, async (req, res) => {
 	const fields = ['service', 'login', 'password', 'notes'];
 
 	let updates = [];
@@ -210,3 +236,14 @@ app.patch('/api/vault/:id', validateToken, async (req, res) => {
 	});
 });
 
+app.get('/api/vault/get', validateToken, async (req, res) => {
+	const user_id = req.user.user_id;
+
+	db.all('SELECT * FROM vault WHERE user_id = ?', [user_id], (err, rows) => {
+		if (err) {
+			console.error('Error while retrieving vault', err.message);
+			return res.status(500).json({ error: 'Internal server error' });
+		}
+		res.status(200).json({ vault: rows });
+	});
+});
