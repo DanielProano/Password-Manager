@@ -4,16 +4,19 @@ A password manager web application that contains all the modern
 
 security features a good password app should have, including:
 
-- Master password hashing
+- Zero Knowledge Implementation
 
-- Data encryption and modulizatoin
+- Master password hashing and securely stored
 
-- Secure login information storage and retrival
+- Client side data encryption with master password
 
 - JSON Web Token generation and verification
 
-- Ability to change login information
+- Ability to change and view vault info
 
+- Rate Limiting
+
+- Strong master passwords enforced
 
 ## Tech Stack
 
@@ -29,9 +32,11 @@ security features a good password app should have, including:
 
 - **express.js** - Web Framework
 
+- **express-rate-limit** - Library for rate limiting
+
 - **jsonwebtoken** - Library for JWT generation and verification
 
-- **crypto** - Built-in library for encryption
+- **bcrypt** - Library for master password hashing
 
 - **sqlite3** - Database
 
