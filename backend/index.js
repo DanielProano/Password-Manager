@@ -1,4 +1,3 @@
-const crypto = require('crypto');
 const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const bcrypt = require('bcrypt');
@@ -9,37 +8,6 @@ dotenv.config();
 const app = express();
 
 app.use(express.json());
-
-// Encryption algo settings
-
-const algo = 'aes-256-cbc';
-
-// Now handle encrypting and decrypting
-
-function encrypt(data, key) {
-	const iv = crypto.randomBytes(16);
-	const cipher = crypto.createCipheriv(algo, key, iv);
-	let encrypted = cipher.update(data, 'utf8');
-
-	encrypted = Buffer.concat([encrypted, cipher.final()]);
-	return {
-		iv: iv.toString('hex'),
-		encryptedData: encrypted.toString('hex')
-	};
-}
-
-function decrypt(data, key) {
-	if (!data || !data.iv || !data.encryptedData) {
-		throw new Error('Invalid Data');
-	}
-
-	let iv = Buffer.from(data.iv, 'hex');
-	let encryptedText = Buffer.from(data.encryptedData, 'hex');
-	let decipher = crypto.createDecipheriv('aes-256-cbc', key, iv);
-	let decrypted = decipher.update(encryptedText);
-	decrypted = Buffer.concat([decrypted, decipher.final()]);
-	return decrypted.toString('utf8');
-}
 
 // Let app listen on a port
 
@@ -133,7 +101,7 @@ app.post('/api/verify', async (req, res) => {
 				process.env.JWT_SECRET,
 				{ expiresIn: '1h' }
 			);
-				
+
 			res.status(200).json({
 				message: 'Authentication successful',
 				token: token
@@ -183,20 +151,13 @@ function validateToken(req, res, next) {
 
 // Stores password info
 
-app.post('/api/vault', validateToken, (req, res) => {
+app.post('/api/vault', validateToken, async (req, res) => {
 	const { service, login, password, notes } = req.body;
 	const userID = req.user.user_id;
 
 	if (!service || !login || !password) {
 		return res.status(400).json({ error: 'Missing fields' });
 	}
-
-	fields = [userID, service, login, password, notes];
-
-	enc_userID = encrypt(userID);
-	enc_service = encrypt(service);
-	enc_login = encrypt(login);
-	
 
 	db.run(
 		`INSERT INTO vault (user_id, service, login, password, notes) VALUES (?, ?, ?, ?, ?)`,
@@ -214,7 +175,7 @@ app.post('/api/vault', validateToken, (req, res) => {
 
 // Updates password info
 
-app.patch('/api/vault/:id', validateToken, (req, res) => {
+app.patch('/api/vault/:id', validateToken, async (req, res) => {
 	const fields = ['service', 'login', 'password', 'notes'];
 
 	let updates = [];
