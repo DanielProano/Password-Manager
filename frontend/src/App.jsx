@@ -1,35 +1,52 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [output, setOutput] = useState('');
+
+  function login() {
+    console.log('Email:', email);
+    console.log('Password:', password);
+  }
+
+  async function sayHello() {
+    try {
+      const response = await fetch('/api/hello');
+      const text = await response.text();
+      setOutput(text);
+    } catch (error) {
+      console.error('Error fetching hello:', error);
+      setOutput('Error calling backend');
+    }
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div>
+      <h1>Password Manager by Danny Proano</h1>
+      <h2>Keeping your passwords secure</h2>
+
+      <input
+        type='email'
+        placeholder='Enter your email'
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      /><br /><br />
+
+      <input
+        type='password'
+        placeholder='Enter your password'
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      /><br /><br />
+
+      <button onClick={login}>Save</button>
+      <button onClick={sayHello}>Hello World</button>
+
+      <p>{output}</p>
+    </div>
+  );
 }
 
-export default App
+export default App;
