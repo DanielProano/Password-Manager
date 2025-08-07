@@ -42,6 +42,8 @@ security features a good password app should have, including:
 
 - **dotenv** - Library to load variables from .env
 
+- **crypto** - Library used to create secure and random salts
+
 ### Frontend:
 
 - **vite** - Frontend build tool
