@@ -1,3 +1,4 @@
+const crypto = require('crypto');
 const express = require('express');
 const rate_limit = require('express-rate-limit');
 const sqlite3 = require('sqlite3').verbose();
@@ -62,7 +63,8 @@ db.run(`
 	CREATE TABLE IF NOT EXISTS users (
 		id INTEGER PRIMARY KEY AUTOINCREMENT,
 		username TEXT UNIQUE NOT NULL,
-		password TEXT NOT NULL
+		password TEXT NOT NULL,
+		enc_salt TEXT NOT NULL
 	)`, err => {
 		if (err) console.error('Users table access failure:', err);
 		else console.log('Users table access successful')
@@ -80,12 +82,13 @@ app.post('/api/register', auth_limiter, async (req, res) => {
 	const saltRounds = 10
 
 	try {
-		const salt = await bcrypt.genSalt(saltRounds)
-		const hash = await bcrypt.hash(pass, salt);
+		const master_salt = await bcrypt.genSalt(saltRounds);
+		const vault_salt = crypto.randomBytes(16).toString('base64');
+		const hash = await bcrypt.hash(pass, master_salt);
 		
 		db.run(
-			`INSERT INTO users(username, password) VALUES(?, ?)`, 
-			[user, hash],
+			`INSERT INTO users(username, password, enc_salt) VALUES(?, ?, ?)`, 
+			[user, hash, vault_salt],
 			(err) => {
 				if (err) {
 					console.log('DB Insert Error', err.message);
@@ -107,7 +110,7 @@ app.post('/api/verify', auth_limiter, async (req, res) => {
 
 	try {
 		const row = await new Promise((resolve, reject) => {
-			db.get('SELECT id, password FROM users WHERE username = ?', [user], (err, row) => {
+			db.get('SELECT id, password, enc_salt FROM users WHERE username = ?', [user], (err, row) => {
 				if (err) reject(err);
 				else resolve(row);
 			});
@@ -123,14 +126,15 @@ app.post('/api/verify', auth_limiter, async (req, res) => {
 			console.log('Correct Password, user authenticated.');
 
 			const token = jwt.sign(
-				{ username: user, user_id: row.id },
+				{ user_id: row.id },
 				process.env.JWT_SECRET,
 				{ expiresIn: '1h' }
 			);
 
 			res.status(200).json({
 				message: 'Authentication successful',
-				token: token
+				token: token,
+				salt: row.enc_salt
 			});
 
 		} else {
@@ -171,6 +175,9 @@ function validateToken(req, res, next) {
 		req.user = verified;
 		next();
 	} catch (error) {
+		if (error.name === 'TokenExpiredError') {
+			return res.status(401).json({ error: 'Expired Token' });
+		}
 		return res.status(403).json({error: 'Invalid token'});
 	}
 }
@@ -246,4 +253,8 @@ app.get('/api/vault/get', validateToken, async (req, res) => {
 		}
 		res.status(200).json({ vault: rows });
 	});
+});
+
+app.get('/api/me', validateToken, (req, res) => {
+	res.status(200).json({ user_id: req.user.user_id });
 });
