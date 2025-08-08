@@ -10,8 +10,8 @@ function Register() {
 
 	async function register_login() {
 		const newLogin = {
-			username: email,
-			password: password
+			user: email,
+			pass: password
 		};
 
 		try {
