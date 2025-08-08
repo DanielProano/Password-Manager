@@ -8,12 +8,12 @@ import About from './pages/About';
 import Virus from './pages/Virus';
 import NotFound from './pages/NotFound';
 
-import SideBar from './pages/SideBar';
+import TopBar from './pages/TopBar';
 
 function App() {
 	return (
-		<div className="sidebade">
-			<SideBar />
+		<div className="layout">
+			<TopBar />
 			<div className="content">
 				<Routes>
 					<Route path="/" element={<Home />} />

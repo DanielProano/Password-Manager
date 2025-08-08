@@ -1,9 +1,38 @@
-import { userState } from 'react';
-import { Link, userNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Register() {
 	const [email, setEmail] = useState('');
-	const [password, setPassword] = userState('');
+	const [password, setPassword] = useState('');
+	const [output, setOutput] = useState('');
+
+	const navigate = useNavigate();
+
+	async function register_login() {
+		const newLogin = {
+			username: email,
+			password: password
+		};
+
+		try {
+			const response = await fetch('/api/register', {
+        		method: 'POST',
+        		headers: { 'Content-Type': 'application/json' },
+        		body: JSON.stringify(newLogin)
+      		});
+
+      		const data = await response.json();
+
+      		if (response.ok) {
+        		navigate('/RegisterSuccess');
+      		} else {
+			setOutput('Couldnt Register');
+		}
+    	} catch (error) {
+      		console.error('Error:', error);
+      		setOutput('Login Error');
+    	}	
+
 
 	const html = (
 		<div id='Register'>
@@ -25,14 +54,13 @@ function Register() {
 					value={password}
 					onChange={(e) => setPassword(e.target.value)}
 				/><br /><br />
-			</div>			
+			</div>	
+			
+			<button  onClick={register_login} disabled={!email || !password}>Register</button>
+			<p>{output}</p>	
 		</div>
 	);
 
-	async function Register() {
-		try {
-			
-	
 	return html;
 };
 
