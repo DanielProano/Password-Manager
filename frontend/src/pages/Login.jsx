@@ -1,14 +1,36 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [output, setOutput] = useState('');
 
-  function login() {
-    console.log('Email:', email);
-    console.log('Password:', password);
+  const loginData = {
+    email: email,
+    password: password
+  };
+
+  async function login() {
+    try {
+      const response = await fetch('/api/verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(loginData)
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        useNavigate('/vault');
+      } else {
+        setOutput(data.message || 'Login failed, try again');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      setOutput('Login Error');
+    }
   }
 
   async function sayHello() {
@@ -41,7 +63,7 @@ function LoginPage() {
         onChange={(e) => setPassword(e.target.value)}
       /><br /><br />
 
-      <button onClick={login}>Save</button>
+      <button onClick={login}>Login</button>
       <button onClick={sayHello}>Hello World</button>
 
       <p>{output}</p>

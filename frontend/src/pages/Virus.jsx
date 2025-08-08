@@ -1,5 +1,9 @@
 function Virus() {
-	<div>Virus Research Page</div>;
+	return (
+		<div>
+			<h1>Virus Research Page</h1>
+		</div>
+	);
 };
 
 export default Virus;
