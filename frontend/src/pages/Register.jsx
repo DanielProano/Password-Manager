@@ -16,22 +16,23 @@ function Register() {
 
 		try {
 			const response = await fetch('/api/register', {
-        		method: 'POST',
-        		headers: { 'Content-Type': 'application/json' },
-        		body: JSON.stringify(newLogin)
-      		});
+        			method: 'POST',
+        			headers: { 'Content-Type': 'application/json' },
+        			body: JSON.stringify(newLogin)
+      			});
 
-      		const data = await response.json();
+      			const data = await response.json();
 
-      		if (response.ok) {
-        		navigate('/RegisterSuccess');
-      		} else {
-			setOutput('Couldnt Register');
-		}
-    	} catch (error) {
-      		console.error('Error:', error);
-      		setOutput('Login Error');
-    	}	
+      			if (response.ok) {
+        			navigate('/RegisterSuccess');
+      			} else {
+				setOutput('Couldnt Register');
+			}
+    		} catch (error) {
+      			console.error('Error:', error);
+      			setOutput('Login Error');
+    		}
+	}	
 
 
 	const html = (
