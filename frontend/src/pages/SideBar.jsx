@@ -1,18 +1,14 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import '.SideBar.css';
+import './SideBar.css';
 
 function SideBar() {
-	const [isOpen, setIsOpen] = userState(false);
+	const [isOpen, setIsOpen] = useState(false);
 
 	return (
-		<div
-			className={`sidebar ${isOpen ? 'open' : ''}`}
-			onMouseEnter={() => setIsOpen(true)}
-			onMouseLeave={() => setIsOpen(false)}
-		>
+		<div className={`sidebar ${isOpen ? 'open' : ''}`} onMouseEnter={() => setIsOpen(true)} onMouseLeave={() => setIsOpen(false)}>
 
-			<div classname="hamburger" onClick={() => setIsOpen(!isOpen)}>
+			<div className="hamburger" onClick={() => setIsOpen(!isOpen)}>
 				☰
 			</div>
 
@@ -25,4 +21,4 @@ function SideBar() {
 	);
 }
 
-export default Sidebar;
+export default SideBar;

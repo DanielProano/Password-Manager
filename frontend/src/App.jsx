@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -8,27 +8,17 @@ import About from './pages/About';
 import Virus from './pages/Virus';
 import NotFound from './pages/NotFound';
 
-import SideBar from './pages/SideBar'; {/* For navigation */}
+import SideBar from './pages/SideBar';
 
 function App() {
 	return (
-		<BrowserRouter>
-			<Routes>
-				<Route path="/login" element={<Login />} />
-				<Route path="/register" element={<Register />} />
-				<Route path="/*" element={<MainApp />} />
-			</Routes>
-		</BrowserRouter>
-	);			
-}
-
-function MainApp() {
-	return (
-		<div className="sidebar">
+		<div className="sidebade">
 			<SideBar />
 			<div className="content">
 				<Routes>
 					<Route path="/" element={<Home />} />
+					<Route path="/login" element={<Login />} />
+					<Route path="/register" element={<Register />} />
 					<Route path="/blog" element={<Blog />} />
 					<Route path="/about" element={<About />} />
 					<Route path="/virus" element={<Virus />} />
