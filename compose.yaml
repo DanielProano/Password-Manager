@@ -19,6 +19,7 @@ services:
       - ./backend/.env
     volumes:
       - ./backend:/app
+      - /app/node_modules
     restart: always
 
   frontend:

@@ -5,3 +5,5 @@ function RegisterSuccess() {
 		</div>
 	);
 };
+
+export default RegisterSuccess;

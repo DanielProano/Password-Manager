@@ -86,7 +86,7 @@ app.post('/api/register', auth_limiter, async (req, res) => {
 		const master_salt = await bcrypt.genSalt(saltRounds);
 		const vault_salt = crypto.randomBytes(16).toString('base64');
 		const hash = await bcrypt.hash(pass, master_salt);
-		
+
 		db.run(
 			`INSERT INTO users(username, password, enc_salt) VALUES(?, ?, ?)`, 
 			[user, hash, vault_salt],
@@ -95,6 +95,7 @@ app.post('/api/register', auth_limiter, async (req, res) => {
 					console.log('DB Insert Error', err.message);
 					return res.status(500).json({error: 'DB Error'});
 				}
+			console.log('Was a success');
 			res.status(201).json({ message: 'User registered successfully' });
 			}
 		);
@@ -108,6 +109,9 @@ app.post('/api/register', auth_limiter, async (req, res) => {
 
 app.post('/api/verify', auth_limiter, async (req, res) => {
 	const { user, pass } = req.body
+
+	console.log('user:', user);
+	console.log('pass:', pass);
 
 	try {
 		const row = await new Promise((resolve, reject) => {

@@ -7,9 +7,11 @@ function LoginPage() {
   const [password, setPassword] = useState('');
   const [output, setOutput] = useState('');
 
+  const navigation = useNavigate();
+
   const loginData = {
-    email: email,
-    password: password
+    user: email,
+    pass: password
   };
 
   async function login() {
@@ -23,7 +25,7 @@ function LoginPage() {
       const data = await response.json();
 
       if (response.ok) {
-        useNavigate('/vault');
+        navigation('/vault');
       } else {
         setOutput(data.message || 'Login failed, try again');
       }
