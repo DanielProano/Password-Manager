@@ -10,7 +10,7 @@ html, body {
 	justify-content: center;
 	align-items: center;
 	box-shadow: 0 2px 4px rgba(0,0,0,0.4);
-	'position: sticky;'
+	position: sticky;
 	top: 0;
 	z-index: 1000;
 }
