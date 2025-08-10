@@ -50,30 +50,42 @@ function LoginPage() {
 
   return (
     <div>
-      <h1>Password Manager by Danny Proano</h1>
-      <h2>Keeping your passwords secure</h2>
-
-      <div id="Login-Box">
-        <input
-          type='email'
-          placeholder='Enter your email'
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        /><br /><br />
-
-        <input
-          type='password'
-          placeholder='Enter your password'
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        /><br /><br />
-
-        <button onClick={login}>Login</button>
-        <button onClick={sayHello}>Hello World</button>
+      <div className="Login">
+        <h1>A Password Manager</h1>
+      </div>
+      <div className="Login">
+        <h2>Keeping your passwords secure</h2>
       </div>
 
-      <p>{output}</p>
-      <p>{"Don't have an account?"} <Link to="/register">Register</Link></p>
+      <div className="Login-Container">
+        <div id="Login-Box">
+          <div className="Login-Button">
+            <input
+              type='email'
+              placeholder='Enter your email'
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            /><br /><br />
+          </div>
+
+          <div className="Login-Button">
+            <input
+              type='password'
+              placeholder='Enter your password'
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            /><br /><br />
+          </div>
+
+          <button onClick={login}>Login</button>
+          <button onClick={sayHello}>Hello World</button>
+        </div>
+      </div>
+
+      <div className="Login">
+        <p>{output}</p>
+        <p>{"Don't have an account?"} <Link to="/register">Register</Link></p>
+      </div>
     </div>
   );
 }

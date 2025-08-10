@@ -36,12 +36,12 @@ h1 {
 button {
 	border-radius: 24px;
 	border: 2px solid;
-	border-color: #6290df;
+	border-color: #87a6ed;
 	padding: 0.6em 1.2em;
 	font-size: 1em;
 	font-weight: 100;
 	font-family: Verdana;
-	color: #6290df;
+	color: #87a6ed;
 	background-color: #121a27;
 	cursor: pointer;
 	transition: border-color 0.10s;
