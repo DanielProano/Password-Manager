@@ -11,6 +11,7 @@ function TopBar() {
 				<Link to="/blog" className="nav-link">Blog</Link>
 				<Link to="/login" className="nav-link">Password Manager</Link>
 				<Link to="/virus" className="nav-link">Virus Research</Link>
+				<Link to="/music" className="nav-link">Music</Link>
 			</nav>
 		</header>
 	);
