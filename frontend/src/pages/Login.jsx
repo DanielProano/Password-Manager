@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
+import './Login.css';
+
 function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -51,22 +53,24 @@ function LoginPage() {
       <h1>Password Manager by Danny Proano</h1>
       <h2>Keeping your passwords secure</h2>
 
-      <input
-        type='email'
-        placeholder='Enter your email'
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      /><br /><br />
+      <div id="Login-Box">
+        <input
+          type='email'
+          placeholder='Enter your email'
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        /><br /><br />
 
-      <input
-        type='password'
-        placeholder='Enter your password'
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      /><br /><br />
+        <input
+          type='password'
+          placeholder='Enter your password'
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        /><br /><br />
 
-      <button onClick={login}>Login</button>
-      <button onClick={sayHello}>Hello World</button>
+        <button onClick={login}>Login</button>
+        <button onClick={sayHello}>Hello World</button>
+      </div>
 
       <p>{output}</p>
       <p>{"Don't have an account?"} <Link to="/register">Register</Link></p>
