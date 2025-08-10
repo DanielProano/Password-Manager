@@ -6,4 +6,4 @@ function Vault() {
 	);
 };
 
-return default Vault;
+export default Vault;
