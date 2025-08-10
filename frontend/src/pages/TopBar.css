@@ -4,13 +4,13 @@ html, body {
 }
 
 .topbar {
-	background-color: #494a50;
+	background-color: #404045;
 	padding: 20px 20px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	box-shadow: 0 2px 4px rgba(0,0,0,0.4);
-	position: sticky;
+	'position: sticky;'
 	top: 0;
 	z-index: 1000;
 }
