@@ -1,6 +1,8 @@
-import { useState } from 'react'
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { use_auth } from '../Contexts/AuthContext';
+import { derive_key, encrypt, decrypt } from '../Contexts/Encrypt';
 
 import './Login.css';
 
@@ -10,23 +12,25 @@ function LoginPage() {
   const [output, setOutput] = useState('');
 
   const navigation = useNavigate();
-
-  const loginData = {
-    user: email,
-    pass: password
-  };
+  const { derived_key, set_derived_key } = use_auth();
 
   async function login() {
     try {
       const response = await fetch('/api/verify', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(loginData)
+        body: JSON.stringify({ user: email, pass: password })
       });
 
       const data = await response.json();
 
       if (response.ok) {
+        const { token, salt } = data;
+
+	const key = await derive_key(password, salt);
+
+	set_derived_key({ key: key, token: token });
+	
         navigation('/vault');
       } else {
         setOutput(data.message || 'Login failed, try again');
@@ -54,7 +58,9 @@ function LoginPage() {
         <h1>A Password Manager</h1>
       </div>
       <div className="Login">
-        <h2>Keeping your passwords secure</h2>
+        <div id="Login-Sub">
+          <h2>Keeping your passwords secure</h2>
+        </div>
       </div>
 
       <div className="Login-Container">

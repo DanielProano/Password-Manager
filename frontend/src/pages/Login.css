@@ -21,6 +21,11 @@
 	align-items: center;
 }
 
+#Login-Sub h2 {
+	margin-top: -20px;
+	margin-bottom: 40px
+}
+
 .Login-Button input {
 	flex: 1;
 	padding: 6px 10px;
