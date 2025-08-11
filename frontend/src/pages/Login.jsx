@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { use_auth } from '../Contexts/AuthContext';
-import { derive_key, encrypt, decrypt } from '../Contexts/Encrypt';
+import { derive_key } from '../Contexts/Encrypt';
 
 import './Login.css';
 

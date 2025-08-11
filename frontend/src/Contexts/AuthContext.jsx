@@ -2,7 +2,7 @@ import { createContext, useState, useContext } from 'react';
 
 const auth_context = createContext(null);
 
-export function auth_provider({ children }) {
+export function AuthProvider({ children }) {
 	const [derived_key, set_derived_key] = useState(null);
 
 	return (

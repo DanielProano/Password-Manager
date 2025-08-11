@@ -1,5 +1,3 @@
-import crypto from 'crypto';
-
 async function derive_key(master_password, salt) {
 	const enc = new TextEncoder();
 	const password_bytes = enc.encode(master_password);
@@ -67,3 +65,4 @@ async function decrypt(key, iv_array, cipher) {
 	return dec.decode(text_bytes);
 }
 	
+export { derive_key, encrypt, decrypt };

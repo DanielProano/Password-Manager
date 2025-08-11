@@ -47,3 +47,5 @@ security features a good password app should have, including:
 ### Frontend:
 
 - **vite** - Frontend build tool
+
+- **react-router-dom** - React library facilitating the interaction between different pages
