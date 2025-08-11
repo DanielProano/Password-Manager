@@ -54,7 +54,7 @@ function LoginPage() {
 
       <div className="Login-Container">
         <div id="Login-Box">
-          <div className="Login-Button">
+          <div className="Login-Input">
             <input
               type='email'
               placeholder='Enter your email'
@@ -63,7 +63,7 @@ function LoginPage() {
             /><br /><br />
           </div>
 
-          <div className="Login-Button">
+          <div className="Login-Input">
             <input
               type='password'
               placeholder='Enter your password'
@@ -71,8 +71,9 @@ function LoginPage() {
               onChange={(e) => setPassword(e.target.value)}
             /><br /><br />
           </div>
-
-          <button onClick={login}>Login</button>
+          <div id="Login-Button">
+            <button onClick={login}>Login</button>
+          </div>
         </div>
       </div>
 

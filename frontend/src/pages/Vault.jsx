@@ -107,7 +107,7 @@ function Vault() {
 	    <div id="Vault-Search">
 	      <input placeholder='Search' /><br /><br />
 	    </div>
-	    <button>Search></button>
+	    <button>Search</button>
 
 	    <div class="Vault-Add-Button">
 	      <button onClick={() => setShowPopup(true)}>Add</button>

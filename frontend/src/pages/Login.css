@@ -9,9 +9,10 @@
 	justify-content: center;
 	align-items: center;
 	margin: 10px;
+	
 }
 
-.Login-Button {
+.Login-Input {
 	border: 2px solid #87a6ed;
 	background-color: #202733;
 	padding: 8px 15px;
@@ -19,6 +20,10 @@
 	margin-bottom: 20px;
 	display: flex;
 	align-items: center;
+}
+
+#Login-Button {
+	margin-left: 150px;
 }
 
 #Login-Sub h2 {
