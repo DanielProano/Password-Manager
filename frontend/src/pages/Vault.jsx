@@ -6,6 +6,7 @@ function Vault() {
 	const { derived_key, set_derived_key } = use_auth();
 	const [output, set_output] = useState('');
 	const [showPopup, setShowPopup] = useState(false);
+	const [display, setDisplay] = useState([]);
 
 	const [service, setService] = useState('');
 	const [login, setLogin] = useState('');
@@ -27,7 +28,22 @@ function Vault() {
 				if (response.ok) {
 					const data = await response.json();
 					set_output('Access Your Passwords');
-					console.log('Data:', data.vault);
+
+					const decryptedEntries = [];
+
+					for (const entry of data.vault) {
+						const service_enc = JSON.parse(entry.service);
+						const login_enc = JSON.parse(entry.login);
+						const pass_enc = JSON.parse(entry.password);
+						const notes_enc = JSON.parse(entry.notes || '{}');
+	
+						const service_decoded = await decrypt(key, service_enc.iv, service_enc.data);	
+						const login_decoded = await decrypt(key, login_enc.iv, login_enc.data);
+						const pass_decoded = await decrypt(key, pass_enc.iv, pass_enc.data);
+						const notes_decoded = await decrypt(key, notes_enc.iv, notes_enc.data);
+						decryptedEntries.push({service_decoded, login_decoded, pass_decoded, notes_decoded});
+					}
+					setDisplay(decryptedEntries);
 				} else {
 					set_output('Failed to get Passwords');
 					console.log('Failed to get Passwords');
@@ -44,6 +60,7 @@ function Vault() {
 	async function AddInfo() {
 		try {
 			if (derived_key) {
+				console.log(service, login, password, notes);
 				const { key, token } = derived_key;
 
 				const { iv: service_iv, data: service_data } = await encrypt(key, service);
@@ -105,12 +122,23 @@ function Vault() {
 	          <input placeholder="Login" value={login} onChange={(e) => setLogin(e.target.value)} /><br />
 	          <input placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} /><br />
 	          <textarea placeholder="Notes" value={notes} onChange={(e) => setNotes(e.target.value)} ></textarea><br />
-	          <button onClick={() => setShowPopup(false); AddInfo(); }>Done</button>
+	          <button onClick={async () => { setShowPopup(false); await AddInfo(); }}>Done</button>
 	        </div>
 	      </div>
 	    )}
-   	  </div>
-  	);
+	    <div>
+	      {display.map((entry, index) => (
+	        <div key={index}>
+	          <p>Service: {entry.service_decoded}</p>
+	          <p>Login: {entry.login_decoded}</p>	          
+	          <p>Password: {entry.pass_decoded}</p>	          
+	          <p>Notes: {entry.notes_decoded}</p>
+	          <hr />
+	        </div>
+	      ))}          
+   	    </div>
+	  </div>
+	);
 };
 
 export default Vault;

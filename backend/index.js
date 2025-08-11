@@ -159,7 +159,6 @@ db.run(
 		login TEXT NOT NULL,
 		password TEXT NOT NULL,
 		notes TEXT DEFAULT '',
-		enc_iv TEXT NOT NULL,
 		FOREIGN KEY(user_id) REFERENCES users(id)
 	)`, err => {
 		if (err) console.log("Vault table access failure:", err)
@@ -188,7 +187,7 @@ function validateToken(req, res, next) {
 // Stores password info
 
 app.post('/api/vault/store', validateToken, async (req, res) => {
-	const { service, login, password, notes, enc_iv } = req.body;
+	const { service, login, password, notes } = req.body;
 	const userID = req.user.user_id;
 
 	if (!service || !login || !password) {
@@ -196,8 +195,8 @@ app.post('/api/vault/store', validateToken, async (req, res) => {
 	}
 
 	db.run(
-		`INSERT INTO vault (user_id, service, login, password, notes, enc_iv) VALUES (?, ?, ?, ?, ?, ?)`,
-		[userID, service, login, password, notes, enc_iv],
+		`INSERT INTO vault (user_id, service, login, password, notes) VALUES (?, ?, ?, ?, ?)`,
+		[userID, JSON.stringify(service), JSON.stringify(login), JSON.stringify(password), JSON.stringify(notes || {})],
 		function(err) {
 			if (err) {
 				console.error('Vault insert error:', err.message);

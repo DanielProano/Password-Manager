@@ -41,17 +41,6 @@ function LoginPage() {
     }
   }
 
-  async function sayHello() {
-    try {
-      const response = await fetch('/api/hello');
-      const text = await response.text();
-      setOutput(text);
-    } catch (error) {
-      console.error('Error fetching hello:', error);
-      setOutput('Error calling backend');
-    }
-  }
-
   return (
     <div>
       <div className="Login">
@@ -84,7 +73,6 @@ function LoginPage() {
           </div>
 
           <button onClick={login}>Login</button>
-          <button onClick={sayHello}>Hello World</button>
         </div>
       </div>
 
