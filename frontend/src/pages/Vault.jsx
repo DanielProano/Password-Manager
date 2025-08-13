@@ -31,7 +31,7 @@ function Vault() {
 
 				if (response.ok) {
 					const data = await response.json();
-					set_output('Access Your Passwords');
+					set_output('Access Granted');
 
 					const decryptedEntries = [];
 
@@ -53,7 +53,7 @@ function Vault() {
 					console.log('Failed to get Passwords');
 				}
 			} else {
-				set_output('Unauthorized');
+				set_output('Unauthorized User');
 			}
 		} catch (error) {
 			console.log('Error:', error);
@@ -65,6 +65,12 @@ function Vault() {
 		try {
 			if (derived_key) {
 				console.log(service, login, password, notes);
+
+				if (!service || !login || !password) {
+					console.log("Not enough info");
+					return;
+				}
+
 				const { key, token } = derived_key;
 
 				const { iv: service_iv, data: service_data } = await encrypt(key, service);
@@ -105,13 +111,15 @@ function Vault() {
 
   	return (
     	  <div id="Layout">
-      	    <h1>Vault</h1>
-	    <p>{output}</p>
-	    <div class="Horizontal-Line"></div>
-	    <div id="Vault-Search">
-	      <input placeholder='Search' /><br /><br />
+	    <div id="Vault-Header">
+      	      <h1>Vault</h1>
+	      <p>{output}</p>
+	      <div id="Vault-Search">
+	        <input placeholder='Search' /><br /><br />
+	        <button>Search</button>
+	      </div>
 	    </div>
-	    <button>Search</button>
+	    <hr />
 
 	    <div class="Vault-Add-Button">
 	      <button onClick={() => setShowPopup(true)}>Add</button>
@@ -166,7 +174,6 @@ function Vault() {
 	          <p>Login: {entry.login_decoded}</p>	          
 	          <p>Password: {entry.pass_decoded}</p>	          
 	          <p>Notes: {entry.notes_decoded}</p>
-	          <hr />
 	        </div>
 	      ))}          
    	    </div>

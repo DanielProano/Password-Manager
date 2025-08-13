@@ -9,13 +9,19 @@
 	left: 0;
 }
 
+.popup-setup hr {
+	border: none;
+	height: 4px;
+	background-color: #87a6ed;
+}
+
 .popup {
-	background: #67696f;
+	background: #8894b4;
 	box-sizing: border-box;
-	border-radius: 64px;
+	border-radius: 32px;
 	position: relative;
-	width: 625px;
-	height: 625px;
+	width: 610px;
+	height: 610px;
 	overflow: hidden;
 	display: flex;
 	flex-direction: column;
@@ -27,6 +33,49 @@
 	right: 275px;
 }
 
+#Vault-Header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+#Vault-Header h1 {
+	margin-left: 15px;
+	margin-top: 20px;
+}
+
+#Vault-Header p {
+	position: absolute;
+	margin-left: 20px;
+	margin-top: 90px;
+}
+
+#Vault-Header input {
+	position: absolute;
+	margin-top: 35px;
+	right: 140px;
+        border: 2px solid #87a6ed;
+        background-color: #202733;
+        padding: 8px 15px;
+        border-radius: 30px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+	width: 200px;
+	height: 20px;
+}
+
+#Vault-Header button {
+	margin-right: 30px;
+}
+
+.Vault-Add-Button {
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	z-index: 1000;
+}
+
 #Add-Popup-Title {
 	display: flex;
 	align-items: center;
@@ -35,10 +84,10 @@
 	margin: 0;
 	font-size: 24px;
 	font-weight: bold;
-	background: #2d3753;
+	background: #424e70;
 	padding: 10px 10px;
-	border-top-left-radius: 64px;
-	border-top-right-radius: 64px;
+	border-top-left-radius: 32px;
+	border-top-right-radius: 32px;
 	width: 100%;
 	box-sizing: border-box;
 }
@@ -68,7 +117,7 @@
 .form-row {
 	display: flex;
 	align-items: center;
-	gap: 15px;
+	gap: 20px;
 }
 
 .form-row label {
@@ -78,8 +127,10 @@
 
 .form-row textarea {
 	width: 300px;
-	height: 80px;
+	height: 120px;
 	box-sizing: border-box;
+	resize: none;
+	margin-top: 10px;
 }
 
 .form-row input {

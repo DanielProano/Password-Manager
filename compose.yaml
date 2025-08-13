@@ -30,3 +30,5 @@ services:
     volumes:
       - ./frontend:/app
     restart: always 
+    stdin_open: true
+    tty: true
