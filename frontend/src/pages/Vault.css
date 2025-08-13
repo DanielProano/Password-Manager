@@ -69,7 +69,22 @@
 	margin-right: 30px;
 }
 
-.Vault-Add-Button {
+.vault-entry {
+	width: 50%;
+	margin: 10px;
+	padding: 15px;
+	border-radius: 10px;
+	background-color: #637092;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.vault-entry:hover {
+	background-color: #57617a;
+}
+
+.vault-add-button {
 	position: fixed;
 	bottom: 20px;
 	right: 20px;
@@ -138,5 +153,3 @@
 	height: 40px;
 	box-sizing: border-box;
 }
-
-

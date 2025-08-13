@@ -6,13 +6,13 @@ security features a good password app should have, including:
 
 - Zero Knowledge Implementation
 
-- Master password hashing and securely stored
+- Master password salting and hashing with bcrypt
 
-- Client side data encryption with master password
+- Client side data encryption using a master password token and salt
 
 - JSON Web Token generation and verification
 
-- Ability to change and view vault info
+- Ability to add, delete, and view vault info
 
 - Rate Limiting
 
@@ -22,7 +22,7 @@ security features a good password app should have, including:
 
 ### Docker
 
-- For containerizing the app
+- For containerizing and isolating the app
 
 ### Nginx 
 

@@ -45,7 +45,7 @@ function Vault() {
 						const login_decoded = await decrypt(key, login_enc.iv, login_enc.data);
 						const pass_decoded = await decrypt(key, pass_enc.iv, pass_enc.data);
 						const notes_decoded = await decrypt(key, notes_enc.iv, notes_enc.data);
-						decryptedEntries.push({service_decoded, login_decoded, pass_decoded, notes_decoded});
+						decryptedEntries.push({id: entry.id, service_decoded, login_decoded, pass_decoded, notes_decoded});
 					}
 					setDisplay(decryptedEntries);
 				} else {
@@ -64,8 +64,6 @@ function Vault() {
 	async function AddInfo() {
 		try {
 			if (derived_key) {
-				console.log(service, login, password, notes);
-
 				if (!service || !login || !password) {
 					console.log("Not enough info");
 					return;
@@ -104,6 +102,30 @@ function Vault() {
 		}
 	} 
 
+	async function deleteInfo(id) {
+		try {
+			if (derived_key) {
+				const { key, token } = derived_key;
+
+				const response = await fetch(`/api/vault/delete/${id}`, {
+					method: 'DELETE',
+					headers: {
+						'Content-Type': 'application/json',
+						'Authorization': `Bearer ${token}`
+					}
+				});
+				
+				if (response.ok) {
+					console.log('Deleted a entry successfully');
+					GetInfo();
+				} else {
+					console.log("Couldn't delete an entry");
+				}
+			}
+		} catch (error) {
+			console.log("Error:", error);
+		}
+	}
 
 	useEffect(() => {
 		GetInfo();
@@ -121,8 +143,8 @@ function Vault() {
 	    </div>
 	    <hr />
 
-	    <div class="Vault-Add-Button">
-	      <button onClick={() => setShowPopup(true)}>Add</button>
+	    <div className="vault-add-button">
+	      <button onClick={(e) => setShowPopup(true)}>+</button>
 	    </div>
 
 	    {showPopup && (
@@ -155,28 +177,37 @@ function Vault() {
 	      </div>
 	    )}
 
+	    <div>
+	      {display.map((entry, index) => (
+	        <div 
+		  key={entry.id}
+		  className="vault-entry"
+		  onClick={() => {
+		    setCurrentEntry(entry);
+		    setShowDetailsPopup(true);
+		  }}
+		>
+	          <p>{entry.service_decoded}</p>
+		  <button onClick={(e) => { e.stopPropagation(); deleteInfo(entry.id); }}>
+		  X</button>
+	        </div>
+	      ))}          
+   	    </div>
+
+
 	    {showDetailsPopup && currentEntry && (
 	      <div className="popup-setup">
 	        <div className="popup">
 	          <button onClick={() => setShowDetailsPopup(false)}>X</button>
-	          <h2>{currentEntry.service}</h2>
-	          <p><b>Login:</b> {currentEntry.login}</p>
-	          <p><b>Password:</b> {currentEntry.password}</p>
-	          <p><b>Notes:</b> {currentEntry.notes}</p>
+		  <div className="Add-Popup-Title">
+	            <h2>{currentEntry.service_decoded}</h2>
+		  </div>
+	          <p><b>Login:</b> {currentEntry.login_decoded}</p>
+	          <p><b>Password:</b> {currentEntry.pass_decoded}</p>
+	          <p><b>Notes:</b> {currentEntry.notes_decoded}</p>
 	        </div>
 	      </div>
 	    )}
-
-	    <div>
-	      {display.map((entry, index) => (
-	        <div key={index}>
-	          <p>Service: {entry.service_decoded}</p>
-	          <p>Login: {entry.login_decoded}</p>	          
-	          <p>Password: {entry.pass_decoded}</p>	          
-	          <p>Notes: {entry.notes_decoded}</p>
-	        </div>
-	      ))}          
-   	    </div>
 	  </div>
 	);
 };

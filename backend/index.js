@@ -260,3 +260,23 @@ app.get('/api/vault/get', validateToken, async (req, res) => {
 app.get('/api/me', validateToken, (req, res) => {
 	res.status(200).json({ user_id: req.user.user_id });
 });
+
+app.delete('/api/vault/delete/:id', validateToken, (req, res) => {
+	const userID = req.user.user_id;
+	const vaultID = req.params.id;
+
+	const sql = `DELETE FROM vault WHERE user_id = ? AND id = ?`;
+
+	db.run(sql, [userID, vaultID], function(err) {
+		if (err) {
+			console.error("Error:", err.message);
+			return res.status(500).json({ error: 'Internal server error' });
+		}
+
+		if (this.changes === 0) {
+			return res.status(404).json({ error: 'Entry not found' });
+		}
+
+		return res.status(200).json({ message: 'Deleted Successfully' });
+	});
+});
