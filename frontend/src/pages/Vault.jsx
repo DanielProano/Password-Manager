@@ -2,11 +2,15 @@ import { useState, useEffect } from 'react';
 import { use_auth } from '../Contexts/AuthContext';
 import { encrypt, decrypt } from '../Contexts/Encrypt';
 
+import './Vault.css';
+
 function Vault() {	
 	const { derived_key, set_derived_key } = use_auth();
 	const [output, set_output] = useState('');
 	const [showPopup, setShowPopup] = useState(false);
+	const [showDetailsPopup, setShowDetailsPopup] = useState(false);
 	const [display, setDisplay] = useState([]);
+	const [currentEntry, setCurrentEntry] = useState(null);
 
 	const [service, setService] = useState('');
 	const [login, setLogin] = useState('');
@@ -116,16 +120,45 @@ function Vault() {
 	    {showPopup && (
 	      <div className="popup-setup">
 	        <div className="popup">
-	          <h2>Add New Password</h2>
-	          <button onClick={() => setShowPopup(false)}>X</button>
-	          <input placeholder="Service" value={service} onChange={(e) => setService(e.target.value)} /><br />
-	          <input placeholder="Login" value={login} onChange={(e) => setLogin(e.target.value)} /><br />
-	          <input placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} /><br />
-	          <textarea placeholder="Notes" value={notes} onChange={(e) => setNotes(e.target.value)} ></textarea><br />
-	          <button onClick={async () => { setShowPopup(false); await AddInfo(); }}>Done</button>
+	          <div id="Add-Popup-Title">
+	            <h2>Add New Password</h2>
+	            <button onClick={() => setShowPopup(false)}>X</button>
+	          </div>
+	          <div id="Popup-Content">
+	            <div className="form-row">
+		      <h2>Service:</h2>
+	              <input placeholder="Ex. Google" value={service} onChange={(e) => setService(e.target.value)} /><br />
+	            </div>
+	            <div className="form-row">
+	              <h2>Login:</h2>
+	              <input placeholder="Ex. Email" value={login} onChange={(e) => setLogin(e.target.value)} /><br />
+		    </div>
+		    <div className="form-row">
+	              <h2>Password:</h2>
+	              <input placeholder="Ex. 123" value={password} onChange={(e) => setPassword(e.target.value)} /><br />
+		    </div>
+		    <div className="form-row">
+	              <h2>Notes:</h2>
+	              <textarea placeholder="Text" value={notes} onChange={(e) => setNotes(e.target.value)} ></textarea><br />
+		    </div>
+	            <button onClick={async () => { setShowPopup(false); await AddInfo(); }}>Done</button>
+	          </div>
 	        </div>
 	      </div>
 	    )}
+
+	    {showDetailsPopup && currentEntry && (
+	      <div className="popup-setup">
+	        <div className="popup">
+	          <button onClick={() => setShowDetailsPopup(false)}>X</button>
+	          <h2>{currentEntry.service}</h2>
+	          <p><b>Login:</b> {currentEntry.login}</p>
+	          <p><b>Password:</b> {currentEntry.password}</p>
+	          <p><b>Notes:</b> {currentEntry.notes}</p>
+	        </div>
+	      </div>
+	    )}
+
 	    <div>
 	      {display.map((entry, index) => (
 	        <div key={index}>
