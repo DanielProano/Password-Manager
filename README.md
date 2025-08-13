@@ -10,7 +10,7 @@ security features a good password app should have, including:
 
 - Client side data encryption using a master password token and salt
 
-- JSON Web Token generation and verification
+- JSON Web Token generation and verification for all vault functions
 
 - Ability to add, delete, and view vault info
 
