@@ -2,21 +2,27 @@
 
 A password manager web application that contains all the modern
 
-security features a good password app should have, including:
+security features a good zero-knowledge password manager should have.
+
+## Features
 
 - Zero Knowledge Implementation
+
+- Secure user registration and login
 
 - Master password salting and hashing with bcrypt
 
 - Client side data encryption using a master password token and salt
 
-- JSON Web Token generation and verification for all vault functions
+- JSON Web Token generation and persistent session with JWT-based authentication
 
 - Ability to add, delete, and view vault info
 
 - Rate Limiting
 
 - Strong master passwords enforced
+
+- Automatic vault lock after inactivity
 
 ## Tech Stack
 
@@ -36,8 +42,6 @@ security features a good password app should have, including:
 
 - **jsonwebtoken** - Library for JWT generation and verification
 
-- **bcrypt** - Library for master password hashing
-
 - **sqlite3** - Database
 
 - **dotenv** - Library to load variables from .env
@@ -50,4 +54,10 @@ security features a good password app should have, including:
 
 - **react-router-dom** - React library facilitating the interaction between
 
+- **bcryptjs** - Javascript library for hashing and salting
+
 different pages
+
+## Security Model
+
+Upon registration, with strong password generation enforced, the master password is
