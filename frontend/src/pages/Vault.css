@@ -33,6 +33,10 @@
 	right: 275px;
 }
 
+.popup b {
+	color: #424e70;
+}
+
 #Vault-Header {
 	display: flex;
 	align-items: center;
@@ -91,7 +95,7 @@
 	z-index: 1000;
 }
 
-#Add-Popup-Title {
+.Add-Popup-Title {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -107,7 +111,7 @@
 	box-sizing: border-box;
 }
 
-#Add-Popup-Title button {
+.Add-Popup-Title button {
 	position: absolute;
 	right: 20px;
 	top: 35px;

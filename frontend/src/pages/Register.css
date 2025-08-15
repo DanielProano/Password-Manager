@@ -1,0 +1,48 @@
+#Register {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+#Email-Box {
+        border: 2px solid #87a6ed;
+        background-color: #202733;
+        padding: 8px 15px;
+        border-radius: 30px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+}
+
+#Password-Box {
+        border: 2px solid #87a6ed;
+        background-color: #202733;
+        padding: 8px 15px;
+        border-radius: 30px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+}
+
+#Warning {
+	position: relative;
+}
+
+.error {
+	position: absolute;
+	background: black;
+	left: -240px;
+	top: -90px;
+	color: white;
+	padding: 6px 10px;
+	border-radius: 6px;
+	font-size: 0.8rem;
+	white-space: nowrap;
+}
+
+
+.error {
+	content: "";
+	border-color: black transparent transparent transparent;
+}

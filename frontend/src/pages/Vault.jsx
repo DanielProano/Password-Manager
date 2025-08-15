@@ -92,6 +92,7 @@ function Vault() {
 				if (response.ok) {
 					const data = await response.json();
 					console.log('Added info');
+
 					GetInfo();
 				} else {
 					console.log('Failed to add info');
@@ -136,10 +137,6 @@ function Vault() {
 	    <div id="Vault-Header">
       	      <h1>Vault</h1>
 	      <p>{output}</p>
-	      <div id="Vault-Search">
-	        <input placeholder='Search' /><br /><br />
-	        <button>Search</button>
-	      </div>
 	    </div>
 	    <hr />
 
@@ -150,7 +147,7 @@ function Vault() {
 	    {showPopup && (
 	      <div className="popup-setup">
 	        <div className="popup">
-	          <div id="Add-Popup-Title">
+	          <div className="Add-Popup-Title">
 	            <h2>Add New Password</h2>
 	            <button onClick={() => setShowPopup(false)}>X</button>
 	          </div>

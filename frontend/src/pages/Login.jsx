@@ -76,8 +76,8 @@ function LoginPage() {
         </div>
       </div>
 
+      <div id="output"><p>{output}</p></div>
       <div className="Login">
-        <p>{output}</p>
         <p>{"Don't have an account?"} <Link to="/register">Register</Link></p>
       </div>
     </div>
