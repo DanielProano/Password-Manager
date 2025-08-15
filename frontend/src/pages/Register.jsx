@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import bcrypt from 'bcryptjs';
 
 import './Register.css';
 
@@ -12,7 +13,7 @@ function Register() {
 	const navigate = useNavigate();
 
 	function validatePassword(pass) {
-		const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/
+		const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{12,}$/
 		return regex.test(pass);
 	}
 
@@ -21,16 +22,21 @@ function Register() {
 		setPassword(value);
 
 		if (!validatePassword(value)) {
-			setPassWarn('Password requires 8 characters with a special, capital, lowercase, and number');
+			setPassWarn('Password requires 12 characters with a special, capital, lowercase, and number');
 		} else {
 			setPassWarn('');
 		}
 	}
 
 	async function register_login() {
+		const salt = bcrypt.genSaltSync(10);
+
+		const hash = bcrypt.hashSync(password, salt);
+
 		const newLogin = {
 			user: email,
-			pass: password
+			hash: hash,
+			master_salt: salt
 		};
 
 		try {

@@ -2,7 +2,6 @@ const crypto = require('crypto');
 const express = require('express');
 const rate_limit = require('express-rate-limit');
 const sqlite3 = require('sqlite3').verbose();
-const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 dotenv.config();
@@ -11,19 +10,6 @@ const app = express();
 
 app.use(express.json());
 app.set('trust proxy', 1);
-
-// Helper functions
-
-function is_strong_password(password) {
-	if (password.length < 8) return false;
-
-	const has_uppercase = /[A-Z]/.test(password);
-	const has_lowercase = /[a-z]/.test(password);
-	const has_number = /[0-9]/.test(password);
-	const has_special = /[!@#$%^&*()_\-+=,.<>}{\[\]?'"]/.test(password);
-
-	return has_uppercase && has_lowercase && has_number && has_special;
-}
 
 const auth_limiter = rate_limit({
 	windowMs: 60 * 1000,
@@ -64,32 +50,44 @@ db.run(`
 	CREATE TABLE IF NOT EXISTS users (
 		id INTEGER PRIMARY KEY AUTOINCREMENT,
 		username TEXT UNIQUE NOT NULL,
-		password TEXT NOT NULL,
+		hash TEXT NOT NULL,
+		master_salt TEXT NOT NULL,
 		enc_salt TEXT NOT NULL
 	)`, err => {
 		if (err) console.error('Users table access failure:', err);
 		else console.log('Users table access successful')
 });
 
+app.get('/api/salt', auth_limiter, async (req, res) => {
+	const user = req.query.user;
+
+	if (!user) {
+		return res.status(400).json({ message:'Username required' });
+	}
+
+	db.get('SELECT master_salt FROM users WHERE username =?', [user], (err, row) => {
+		if (err) return res.status(500).json({ error: 'DB Error' });
+		if (!row) return res.status(404).json({ error: 'User does not exist' });
+
+		res.status(200).json({ master_salt: row.master_salt });
+	});
+});
+
 // Function for user login
 
 app.post('/api/register', auth_limiter, async (req, res) => {
-	const { user, pass } = req.body
+	const { user, hash, master_salt } = req.body
 
-	if (!is_strong_password(pass)) {
-		return res.status(400).json({ error: 'Weak password' });
+	if (!user || !hash || !master_salt) {
+		return res.status(400).json({ error: 'Need a user, pass, or salt' });
 	}
 
-	const saltRounds = 10
-
 	try {
-		const master_salt = await bcrypt.genSalt(saltRounds);
 		const vault_salt = crypto.randomBytes(16).toString('base64');
-		const hash = await bcrypt.hash(pass, master_salt);
 
 		db.run(
-			`INSERT INTO users(username, password, enc_salt) VALUES(?, ?, ?)`, 
-			[user, hash, vault_salt],
+			`INSERT INTO users(username, hash, master_salt, enc_salt) VALUES(?, ?, ?, ?)`, 
+			[user, hash, master_salt, vault_salt],
 			(err) => {
 				if (err) {
 					console.log('DB Insert Error', err.message);
@@ -108,11 +106,11 @@ app.post('/api/register', auth_limiter, async (req, res) => {
 // Function for verifying login
 
 app.post('/api/verify', auth_limiter, async (req, res) => {
-	const { user, pass } = req.body
+	const { user, hash } = req.body
 
 	try {
 		const row = await new Promise((resolve, reject) => {
-			db.get('SELECT id, password, enc_salt FROM users WHERE username = ?', [user], (err, row) => {
+			db.get('SELECT id, hash, enc_salt FROM users WHERE username = ?', [user], (err, row) => {
 				if (err) reject(err);
 				else resolve(row);
 			});
@@ -122,7 +120,7 @@ app.post('/api/verify', auth_limiter, async (req, res) => {
 			return res.status(401).json({ error: 'User not found'});
 		}
 
-		const isValid = await bcrypt.compare(pass, row.password);
+		const isValid = hash === row.hash;
 
 		if (isValid) {
 			console.log('Correct Password, user authenticated.');
