@@ -2,9 +2,9 @@
 
 # Password Manager
 
-A password manager web application that contains all the modern
+A Zero-Knowledge Password Manager MVP, implementing modern
 
-security features a good zero-knowledge password manager should have
+hashing and encryption methods
 
 ## Features
 
