@@ -94,4 +94,6 @@ git clone https://github.com/DanielProano/Password-Manager.git
 
 cd password-manager
 
+(make the .ENV file in the backend)
+
 docker compose up --build
