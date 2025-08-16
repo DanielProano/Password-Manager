@@ -91,5 +91,7 @@ IV_LEN=16
 ## Installation
 
 git clone https://github.com/DanielProano/Password-Manager.git
+
 cd password-manager
+
 docker compose up --build
