@@ -87,3 +87,9 @@ JWT_SECRET=23rkf92ekmf4nf4jkl3j43fk4l3.zkl2*klsnImx2$_@x
 PORT=8080
 
 IV_LEN=16
+
+## Installation
+
+git clone https://github.com/DanielProano/Password-Manager.git
+cd password-manager
+docker compose up --build
