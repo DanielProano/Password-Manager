@@ -1,8 +1,10 @@
+<img width="1901" height="909" alt="image" src="https://github.com/user-attachments/assets/1bbc9eb2-0704-4ddb-88b5-3e265aad4c47" />
+
 # Password Manager
 
 A password manager web application that contains all the modern
 
-security features a good zero-knowledge password manager should have.
+security features a good zero-knowledge password manager should have
 
 ## Features
 
@@ -60,4 +62,28 @@ different pages
 
 ## Security Model
 
-Upon registration, with strong password generation enforced, the master password is
+Upon registration, with strong password generation enforced, the master password
+
+is salted and hashed locally using bcrypt's blowfish hashing algorithm and
+
+then stored alongside the salt and username. Upon login, the salt is retrieved
+
+from the backend and used to verify the hashes from the input and database
+
+are the same. Then, a JWT token with a unique secret and hour validity 
+
+is generated and used throughout the users session. Finally, a strong key
+
+derived from the PBDKF2 algorithm is used to encrypt the vault information.
+
+This ensures that even if the database is compromised, it is unreadable without the
+
+the master password.
+
+## .Env
+
+JWT_SECRET=23rkf92ekmf4nf4jkl3j43fk4l3.zkl2*klsnImx2$_@x
+
+PORT=8080
+
+IV_LEN=16
