@@ -3,15 +3,25 @@ import { Link } from 'react-router-dom';
 import './TopBar.css';
 
 function TopBar() {
+	const [open, setOpen] = useState(false);
 	return (
 		<header className="topbar">
 			<nav className="topbar-links">
 				<Link to="/" className="nav-link">Home</Link>
 				<Link to="/about" className="nav-link">About</Link>
 				<Link to="/blog" className="nav-link">Blog</Link>
-				<Link to="/login" className="nav-link">Password Manager</Link>
-				<Link to="/virus" className="nav-link">Virus Research</Link>
-				<Link to="/music" className="nav-link">Music</Link>
+				<Link to="/notes" className="nav-link">Notes</Link>
+				<div className="dropdown-projects" onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
+					<span>Projects  ▾</span>
+					{open && (
+						<div className="dropdown-menu">
+							<Link to="/login" className="dropdown-item">Password Manager</Link>
+							<Link to="/virus" className="dropdown-item">Virus Research</Link>
+							<Link to="/music" className="dropdown-item">Music</Link>
+						</div>
+					)}
+				
+				</div>
 			</nav>
 		</header>
 	);

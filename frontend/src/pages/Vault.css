@@ -7,6 +7,7 @@
 	height: 100vh;
 	top: 0;
 	left: 0;
+	z-index: 2000;
 }
 
 .popup-setup hr {
@@ -19,12 +20,15 @@
 	background: #8894b4;
 	box-sizing: border-box;
 	border-radius: 32px;
+	border: 3px solid #7D8DD7;
 	position: relative;
 	width: 610px;
 	height: 610px;
 	overflow: hidden;
 	display: flex;
 	flex-direction: column;
+	z-index: 2001;
+	
 }
 
 .popup button {
@@ -34,6 +38,10 @@
 }
 
 .popup b {
+	color: #ddd;
+}
+
+.popup p {
 	color: #424e70;
 }
 
@@ -74,6 +82,7 @@
 }
 
 .vault-entry {
+	position: relative;
 	width: 50%;
 	margin: 10px;
 	padding: 15px;
@@ -84,8 +93,26 @@
 	justify-content: space-between;
 }
 
-.vault-entry:hover {
+.vault-entry:hover:not(:has(button:hover)) {
 	background-color: #57617a;
+}
+
+.vault-entry button {
+	position: absolute;
+	background: #AE2F4C;
+	color: #f1f1f1;
+	border-color: transparent;
+
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 340px;
+
+	border-radius: 10px;
+}
+
+.vault-entry button:hover {
+	background: #8B233C;
 }
 
 .vault-add-button {

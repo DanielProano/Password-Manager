@@ -8,6 +8,8 @@ RUN npm install
 
 COPY . .
 
+ENV NODE_ENV=production
+
 EXPOSE 8080
 
-CMD ["npm", "start"]
+CMD ["sh", "-c", "if [ \"$NODE_ENV\" = 'development' ]; then npx nodemon server.js; else npm start; fi"]

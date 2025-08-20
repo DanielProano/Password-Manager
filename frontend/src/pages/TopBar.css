@@ -31,3 +31,27 @@ html, body {
 .nav-link:hover {
 	color: #a1add4;
 }
+
+.dropdown-projects {
+	position: relative;
+	display:inline-block;
+}
+
+.dropdown-menu {
+	position: absolute;
+	background-color: #2e3b55;
+	padding: 10px 5px;
+	border-radius: 6px;
+	display: flex;
+	flex-direction: column;
+}
+
+.dropdown-item {
+	padding: 10px 5px;
+	font-size: 1rem;
+	color: #f0f0f0;
+}
+
+.dropdown-item:hover {
+	color: #87a6ed;
+}

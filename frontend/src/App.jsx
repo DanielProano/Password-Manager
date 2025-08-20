@@ -9,6 +9,7 @@ import About from './pages/About';
 import Vault from './pages/Vault';
 import Virus from './pages/Virus';
 import Music from './pages/Music';
+import Notes from './pages/Notes';
 import NotFound from './pages/NotFound';
 
 import TopBar from './pages/TopBar';
@@ -28,6 +29,7 @@ function App() {
 					<Route path="/registerSuccess" element={<RegisterSuccess />} />
 					<Route path="/music" element={<Music />} />
 					<Route path="/vault" element={<Vault />} />
+					<Route path="/notes" element={<Notes />} />
 					<Route path="/*" element={<NotFound />} />
 				</Routes>
 			</div>
