@@ -1,19 +1,8 @@
-
-FROM node:22.17.0-alpine AS build
-
-WORKDIR /usr/src/app
-
-COPY package.json package-lock.json ./
-RUN npm ci
-
-COPY . .
-RUN npm run build
-
-FROM nginx:stable-alpine AS production
+FROM nginx:stable-alpine
 
 RUN rm -rf /usr/share/nginx/html/*
 
-COPY --from=build /usr/src/app/dist /usr/share/nginx/html
+COPY dist /usr/share/nginx/html
 
 EXPOSE 80
 
