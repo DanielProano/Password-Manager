@@ -6,8 +6,6 @@ COPY . .
 EXPOSE 5173
 CMD ["npm", "run", "dev" ]
 
-
-
 FROM node:22.17.0-alpine AS build
 WORKDIR /usr/src/app
 COPY package.json package-lock.json ./
