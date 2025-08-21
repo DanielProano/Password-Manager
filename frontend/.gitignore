@@ -11,7 +11,7 @@ node_modules
 dist
 dist-ssr
 *.local
-.send-dist.sh
+.send_dist.sh
 
 # Editor directories and files
 .vscode/*
