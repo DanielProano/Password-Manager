@@ -106,7 +106,8 @@
 	top: 0;
 	right: 0;
 	bottom: 0;
-	left: 340px;
+
+	width: 80px;
 
 	border-radius: 10px;
 }
