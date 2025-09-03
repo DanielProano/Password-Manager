@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { use_auth } from '../Contexts/AuthContext';
-import { derive_key } from '../Contexts/Encrypt';
+import { use_auth } from '../context/AuthContext';
+import { derive_key } from '../context/Encrypt';
 import bcrypt from 'bcryptjs';
 
 import './Login.css';
