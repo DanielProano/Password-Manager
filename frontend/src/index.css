@@ -50,3 +50,5 @@ button {
 button:hover {
 	background-color: #394b74;
 }
+
+@import "tailwindcss";

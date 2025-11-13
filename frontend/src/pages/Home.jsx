@@ -1,8 +1,10 @@
 function Home() {
 	return (
 		<div>
-			<h1>Home Page</h1>
-		</div>
+         <title>Home</title>
+			<h1>Home </h1>
+         <p>Coming Soon</p>
+      </div>
 	);
 };
 

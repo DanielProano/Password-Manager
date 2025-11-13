@@ -1,18 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 
-import Home from './pages/Home';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import RegisterSuccess from './pages/RegisterSuccess';
-import Blog from './pages/Blog';
-import About from './pages/About';
-import Vault from './pages/Vault';
-import Virus from './pages/Virus';
-import Music from './pages/Music';
-import Notes from './pages/Notes';
-import NotFound from './pages/NotFound';
-
-import TopBar from './pages/TopBar';
+import { Home, Login, Register, RegisterSuccess, Blog, About, Vault, Virus, Music, Notes, NotFound, TopBar } from './pages/index';
 
 function App() {
 	return (
