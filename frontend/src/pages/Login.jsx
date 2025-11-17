@@ -48,46 +48,44 @@ function LoginPage() {
 	}
 
 	return (
-	  <div>
-	    <div className="Login">
-	      <h1>A Password Manager</h1>
+      <div>
+         <div className="flex flex-col justify-center items-center mt-30 text-2xl">
+            <h1>A Password Manager</h1>
+            <div className="mt-10 h-20 text-3xl">
+               <h2>Keeping your passwords secure</h2>
             </div>
-            <div className="Login">
-              <div id="Login-Sub">
-              <h2>Keeping your passwords secure</h2>
+         </div>
+
+         <div className="flex justify-center items-center">
+            <div className="border-2 border-[#3a4e7e] bg-[#202733] p-11 rounded-[24px]">
+               <div className="border-2 border-[#87a6ed] bg-[#202733] px-4 py-2 rounded-full mb-5 flex items-center">
+                  <input
+                     type='email'
+                     placeholder='Enter your email'
+                     value={email}
+                     onChange={(e) => setEmail(e.target.value)}
+                  /><br /><br />
+               </div>
+
+               <div className="border-2 border-[#87a6ed] bg-[#202733] px-4 py-2 rounded-full mb-5 flex items-center">
+                  <input
+                     type='password'
+                     placeholder='Enter your password'
+                     value={password}
+                     onChange={(e) => setPassword(e.target.value)}
+                  /><br /><br />
+               </div>
+               <div className="flex justify-center mt-[20px]"><p>{output}</p></div>
+               <div className="flex justify-center mt-[10px]">
+                  <button onClick={login} className="mt-[10px]">Login</button>
+               </div>
             </div>
-          </div>
+         </div>
 
-          <div className="Login-Container">
-            <div id="Login-Box">
-              <div className="Login-Input">
-                <input
-                  type='email'
-                  placeholder='Enter your email'
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                /><br /><br />
-              </div>
-
-              <div className="Login-Input">
-                <input
-                  type='password'
-                  placeholder='Enter your password'
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                /><br /><br />
-              </div>
-              <div id="Login-Button">
-                <button onClick={login}>Login</button>
-              </div>
-            </div>
-          </div>
-
-          <div id="output"><p>{output}</p></div>
-          <div className="Login">
+         <div className="flex justify-center items-center mt-[20px]">
             <p>{"Don't have an account?"} <Link to="/register">Register</Link></p>
-          </div>
-        </div>
+         </div>
+      </div>
       );
 }
 

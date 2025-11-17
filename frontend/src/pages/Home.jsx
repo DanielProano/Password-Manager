@@ -3,7 +3,7 @@ function Home() {
 		<div>
          <title>Home</title>
 			<h1>Home </h1>
-         <p>Coming Soon</p>
+         <p class="underline">Coming Soon</p>
       </div>
 	);
 };

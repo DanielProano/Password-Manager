@@ -1,14 +1,13 @@
 import { useState } from "react";
-import Danny_pfp from '../assets/Danny_pfp.JPG';
-import "./About.css";
+import Daniel_pfp from '../assets/Daniel_pfp.JPG';
 
 function About() {
 	return (
 		<div>
          <div id="Profile-Header">
-            <img src={Danny_pfp} alt="Danny's Image" />
+            <img src={Daniel_pfp} className="mx-auto mt-5 w-[500px] h-[600px] rounded-full" alt="Danny's Image" />
          </div>
-			<h2 className="underline">About Page</h2>
+			<h2 className="absolute top-40">About Page</h2>
 		</div>
 	);
 };
