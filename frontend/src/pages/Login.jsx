@@ -4,8 +4,6 @@ import { use_auth } from '../context/AuthContext';
 import { derive_key } from '../context/Encrypt';
 import bcrypt from 'bcryptjs';
 
-import './Login.css';
-
 function LoginPage() {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
