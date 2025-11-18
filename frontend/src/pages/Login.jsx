@@ -49,7 +49,7 @@ function LoginPage() {
       <div>
          <div className="flex flex-col justify-center items-center mt-30 text-2xl">
             <h1>A Password Manager</h1>
-            <div className="mt-10 h-20 text-3xl">
+            <div className="mt-5 h-20 text-3xl">
                <h2>Keeping your passwords secure</h2>
             </div>
          </div>
