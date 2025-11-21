@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
 	font-family: Arial Black;
 	line-height: 1.0;
@@ -33,22 +37,32 @@ h1 {
 	line-height: 1.1;
 }
 
-button {
-	border-radius: 24px;
-	border: 2px solid;
-	border-color: #87a6ed;
-	padding: 0.6em 1.2em;
-	font-size: 1em;
-	font-weight: 100;
-	font-family: Verdana;
-	color: #87a6ed;
-	background-color: #121a27;
-	cursor: pointer;
-	transition: border-color 0.10s;
+
+@layer components {
+  .btn {
+    @apply rounded-[24px] border-2 border-[#87a6ed] px-5 py-2.5 text-base font-thin font-sans text-[#87a6ed] bg-[#121a27] cursor-pointer transition-colors duration-100;
+  }
+  .btn:hover {
+    @apply bg-[#394b74];
+  }
 }
 
-button:hover {
-	background-color: #394b74;
-}
+/* button { */
+/* 	border-radius: 24px; */
+/* 	border: 2px solid; */
+/* 	border-color: #87a6ed; */
+/* 	padding: 0.6em 1.2em; */
+/* 	font-size: 1em; */
+/* 	font-weight: 100; */
+/* 	font-family: Verdana; */
+/* 	color: #87a6ed; */
+/* 	background-color: #121a27; */
+/* 	cursor: pointer; */
+/* 	transition: border-color 0.10s; */
+/* } */
+
+/* button:hover { */
+/* 	background-color: #394b74; */
+/* } */
 
 @import "tailwindcss";

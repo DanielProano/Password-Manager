@@ -75,7 +75,7 @@ function LoginPage() {
                </div>
                <div className="flex justify-center mt-[20px]"><p>{output}</p></div>
                <div className="flex justify-center mt-[10px]">
-                  <button onClick={login} className="mt-[10px]">Login</button>
+                  <button onClick={login} className="rounded-[24px] border-2 border-[#87a6ed] px-5 py-2.5 text-base font-thin text-[#87a6ed] cursor-pointer transition-colors duration-100 hover:bg-[#394b74]">Login</button>
                </div>
             </div>
          </div>

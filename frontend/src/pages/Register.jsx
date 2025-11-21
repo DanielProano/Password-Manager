@@ -82,6 +82,7 @@ function Register() {
                   onChange={handlePassChange}
                /><br /><br />
             </div>
+         
             <div className="flex justify-center items-center">
                <button onClick={register_login} disabled={!email || !password}>Register</button>
             </div>
