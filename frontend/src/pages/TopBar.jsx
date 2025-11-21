@@ -7,17 +7,12 @@ function TopBar() {
 	return (
 		<header className="topbar">
 			<nav className="topbar-links">
-				<Link to="/" className="nav-link">Home</Link>
-				<Link to="/about" className="nav-link">About</Link>
-				<Link to="/blog" className="nav-link">Blog</Link>
+				<Link to="/about" className="nav-link">Home</Link>
 				<div className="dropdown-projects" onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
 					<span>Projects  ▾</span>
 					{open && (
-						<div className="dropdown-menu">
+						<div className="absolute translate-x-[-0.7rem] backdrop-blur-xl  px-2 py-4 w-25 flex flex-col border border-[#87a6ed] border-2 rounded-[2rem]">
 							<Link to="/login" className="dropdown-item">Password Manager</Link>
-							<Link to="/virus" className="dropdown-item">Virus Research</Link>
-							<Link to="/music" className="dropdown-item">Music</Link>
-							<Link to="/notes" className="dropdown-item">Notes</Link>
 						</div>
 					)}
 				
