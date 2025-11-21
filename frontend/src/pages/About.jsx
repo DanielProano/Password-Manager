@@ -36,7 +36,6 @@ function About() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-slate-100">
       <div className="max-w-4xl mx-auto px-6 py-16">
-        {/* Header */}
         <div className="text-center mb-16">
           <div className="relative inline-block mb-6">
             <div className="w-40 h-40 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 p-1">
