@@ -1,19 +1,22 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import path from 'path';
-import tailwindcss from '@tailwindcss/vite'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import path from "path";
+import tailwindcss from "@tailwindcss/vite";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
-    host: '0.0.0.0',
-    port: 5173,
+    host: "0.0.0.0",
+    port: parseInt(process.env.PORT) || 5173,
     watch: {
-      usePolling: true
+      usePolling: true,
     },
     proxy: {
-      '/api':'http://backend:8080'
-    }
-  }
+      "/api": "http://localhost:8080",
+    },
+  },
 });

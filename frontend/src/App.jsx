@@ -8,7 +8,7 @@ function App() {
 			<TopBar />
 			<div className="content">
 				<Routes>
-					<Route path="/" element={<Home />} />
+					<Route path="/" element={<About />} />
 					<Route path="/login" element={<Login />} />
 					<Route path="/register" element={<Register />} />
 					<Route path="/blog" element={<Blog />} />
