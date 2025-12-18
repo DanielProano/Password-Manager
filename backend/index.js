@@ -4,6 +4,9 @@ const rate_limit = require("express-rate-limit");
 const sqlite3 = require("sqlite3").verbose();
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 const app = express();
 
@@ -12,7 +15,8 @@ app.set("trust proxy", 1);
 app.use(
   cors({
     origin: "http://localhost:5173",
-    methods: ["GET", "POST"],
+    methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   }),
 );
 
@@ -26,7 +30,7 @@ const auth_limiter = rate_limit({
 
 // Let app listen on a port
 
-app.listen(process.env.PORT, (error) => {
+app.listen(8080, (error) => {
   if (!error) {
     console.log(`Server is Running on port ${process.env.PORT}`);
   } else {
@@ -74,6 +78,8 @@ app.get("/api/salt", auth_limiter, async (req, res) => {
     return res.status(400).json({ message: "Username required" });
   }
 
+  console.log("testing testing");
+
   db.get(
     "SELECT master_salt FROM users WHERE username =?",
     [user],
@@ -112,7 +118,7 @@ app.post("/api/register", auth_limiter, async (req, res) => {
     );
   } catch (err) {
     console.log("General problem with /api/register", err);
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: "Internal server error0" });
   }
 });
 
@@ -157,7 +163,7 @@ app.post("/api/verify", auth_limiter, async (req, res) => {
     }
   } catch (err) {
     console.error("Error occured:", err);
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: err });
   }
 });
 
@@ -271,7 +277,7 @@ app.get("/api/vault/get", validateToken, async (req, res) => {
   db.all("SELECT * FROM vault WHERE user_id = ?", [user_id], (err, rows) => {
     if (err) {
       console.error("Error while retrieving vault", err.message);
-      return res.status(500).json({ error: "Internal server error" });
+      return res.status(500).json({ error: "Internal server error2" });
     }
     res.status(200).json({ vault: rows });
   });
@@ -290,7 +296,7 @@ app.delete("/api/vault/delete/:id", validateToken, (req, res) => {
   db.run(sql, [userID, vaultID], function (err) {
     if (err) {
       console.error("Error:", err.message);
-      return res.status(500).json({ error: "Internal server error" });
+      return res.status(500).json({ error: "Internal server error3" });
     }
 
     if (this.changes === 0) {

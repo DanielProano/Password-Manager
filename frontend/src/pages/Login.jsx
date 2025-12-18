@@ -15,7 +15,10 @@ function LoginPage() {
 
 	async function login() {
 		try {
+         console.log("Entered login")
 			const salt_response = await fetch(`${config.backend}/api/salt?user=${encodeURIComponent(email)}`);
+
+         console.log(salt_response);
 
 			const { master_salt } = await salt_response.json();
 
@@ -27,7 +30,11 @@ function LoginPage() {
 				body: JSON.stringify({ user: email, hash: hash })
 			});
 
+         console.log(response);
+
 			const data = await response.json();
+
+         console.log(data);
 
 			if (response.ok) {
 				const { token, salt } = data;
