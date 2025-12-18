@@ -1,5 +1,5 @@
 #! /bin/bash
 
-sudo docker build -t test .
+sudo docker build -t frontend .
 
-sudo docker run -p 5173:5173 -d test
+sudo docker run -p 5173:5173 -d frontend

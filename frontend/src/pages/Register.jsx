@@ -46,8 +46,6 @@ function Register() {
             body: JSON.stringify(newLogin)
          });
 
-         const data = await response.json();
-
          if (response.ok) {
             navigate('/RegisterSuccess');
          } else {

@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { use_auth } from '../context/AuthContext';
 import { derive_key } from '../context/Encrypt';
 import bcrypt from 'bcryptjs';
-
 import config from "../config.json";
 
 function LoginPage() {
