@@ -4,6 +4,8 @@ import { use_auth } from '../context/AuthContext';
 import { derive_key } from '../context/Encrypt';
 import bcrypt from 'bcryptjs';
 
+import config from "../config.json";
+
 function LoginPage() {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
@@ -14,13 +16,13 @@ function LoginPage() {
 
 	async function login() {
 		try {
-			const salt_response = await fetch(`/api/salt?user=${encodeURIComponent(email)}`);
+			const salt_response = await fetch(`${config.backend}/api/salt?user=${encodeURIComponent(email)}`);
 
 			const { master_salt } = await salt_response.json();
 
 			const hash = await bcrypt.hashSync(password, master_salt);
 
-			const response = await fetch('/api/verify', {
+			const response = await fetch(`${config.backend}/api/verify`, {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({ user: email, hash: hash })

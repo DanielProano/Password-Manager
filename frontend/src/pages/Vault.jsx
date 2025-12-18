@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { use_auth } from '../context/AuthContext';
 import { encrypt, decrypt } from '../context/Encrypt';
+import config from "../config.json";
 
 function Vault() {	
 	const { derived_key, set_derived_key } = use_auth();
@@ -23,7 +24,7 @@ function Vault() {
          }
          const { key, token } = derived_key;
 
-         const response = await fetch('/api/vault/get', {
+         const response = await fetch(`${config.backend}/api/vault/get`, {
             method: 'GET',
             headers: {
             'Content-Type': 'application/json',
@@ -78,7 +79,7 @@ function Vault() {
          const {iv: pass_iv, data: pass_data } = await encrypt(key, password);
          const {iv: notes_iv, data: notes_data } = await encrypt(key, notes);
 
-         const response = await fetch('/api/vault/store', {
+         const response = await fetch(`${config.backend}/api/vault/store`, {
             method: 'POST',
             headers: {
                'Content-Type': 'application/json',
@@ -112,7 +113,7 @@ function Vault() {
          }
          
          const { key, token } = derived_key;
-         const response = await fetch(`/api/vault/delete/${id}`, {
+         const response = await fetch(`${config.backend}/api/vault/delete/${id}`, {
             method: 'DELETE',
             headers: {
                'Content-Type': 'application/json',

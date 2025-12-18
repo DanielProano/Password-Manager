@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import bcrypt from 'bcryptjs';
+import config from "../config.json";
+
 
 function Register() {
 	const [email, setEmail] = useState('');
@@ -38,7 +40,7 @@ function Register() {
 		};
 
 		try {
-         const response = await fetch('/api/register', {
+         const response = await fetch(`${config.backend}/api/register`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(newLogin)

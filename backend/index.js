@@ -3,13 +3,18 @@ const express = require("express");
 const rate_limit = require("express-rate-limit");
 const sqlite3 = require("sqlite3").verbose();
 const jwt = require("jsonwebtoken");
-const dotenv = require("dotenv");
-dotenv.config();
+const cors = require("cors");
 
 const app = express();
 
 app.use(express.json());
 app.set("trust proxy", 1);
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST"],
+  }),
+);
 
 const auth_limiter = rate_limit({
   windowMs: 60 * 1000,
@@ -41,6 +46,7 @@ const db = new sqlite3.Database("./passwords.db", (err) => {
 // Test function to ensure backend can communicate with frontend
 
 app.get("/api/hello", (req, res) => {
+  console.log("Backend hit");
   res.send("Hello World\n");
 });
 
