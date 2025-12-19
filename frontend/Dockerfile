@@ -10,5 +10,5 @@ COPY . .
 #ENV PORT=8080
 
 #CMD ["npm", "run", "dev" ]
-CMD ["node": "server.js"]
+CMD ["node", "server.js"]
 #CMD if [ "$NODE_ENV" = "production" ]; then npm start; else npm run dev; fi
