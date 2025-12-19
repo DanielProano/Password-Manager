@@ -9,14 +9,11 @@ app.use(cors());
 
 const PORT = process.env.PORT || 5173;
 
-// __dirname is not defined in ES modules, so we need this workaround
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Serve static frontend
 app.use(express.static(path.join(__dirname, "dist")));
 
-// SPA fallback
 app.use((req, res) => {
   res.sendFile(path.join(__dirname, "dist/index.html"));
 });
