@@ -48,7 +48,7 @@ const db = new sqlite3.Database("./passwords.db", (err) => {
 
 app.get("/api/hello", (req, res) => {
   console.log("Backend hit");
-  res.send("Hello World\n");
+  res.send("Hello World!!!\n");
 });
 
 // Create and store info in a database
