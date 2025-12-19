@@ -14,7 +14,7 @@ app.use(express.json());
 app.set("trust proxy", 1);
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://frontend-896359618082.europe-west1.run.app",
     methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   }),
@@ -30,14 +30,11 @@ const auth_limiter = rate_limit({
 
 // Let app listen on a port
 
-app.listen(8080, (error) => {
-  if (!error) {
-    console.log(`Server is Running on port ${process.env.PORT}`);
-  } else {
-    console.log("Error, server is not running", error);
-  }
-});
+const PORT = process.env.PORT || 8080;
 
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`Server is running on port ${PORT}`);
+});
 // Use an sqlite3 database
 
 const db = new sqlite3.Database("./passwords.db", (err) => {
