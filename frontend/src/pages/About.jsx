@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Daniel_pfp from '../assets/Daniel_pfp.JPG';
+import Background from '../assets/Background.svg';
 import config from "../config.json";
 
 function About() {
@@ -34,16 +35,13 @@ function About() {
       "Creative": "Blender, Maya"
    };
 
-   const [out, setOut] = useState('');
-
-   async function test() {
-      const t = await fetch(`${config.backend}/api/hello`);  
-      const text = await t.text();  
-      setOut(text);                          
-      console.log(text);                 
-   }
    return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-slate-100">
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-slate-100" style={{
+      backgroundImage: `url(${Background})`,
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      minHeight: "100vh",
+    }}>
          <div className="max-w-4xl mx-auto px-6 py-16">
             <div className="text-center mb-16">
                <div className="relative inline-block mb-6">
@@ -62,8 +60,6 @@ function About() {
                Purdue Computer Science student at the intersection of Software Engineering and Cybersecurity
                </p>
             </div>
-         <button onClick={test}> Button</button>
-         {out} 
 
          {/* About */}
          <section className="mb-16">
