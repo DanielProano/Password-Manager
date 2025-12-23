@@ -82,11 +82,9 @@ the master password.
 
 ## .Env
 
-JWT_SECRET=23rkf92ekmf4nf4jkl3j43fk4l3.zkl2*klsnImx2$_@x
+JWT_SECRET=Some String
 
 PORT=8080
-
-IV_LEN=16
 
 ## Installation
 
@@ -96,4 +94,4 @@ cd password-manager
 
 (make the .ENV file in the backend)
 
-docker compose up --build
+./host.sh
