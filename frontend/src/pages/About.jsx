@@ -24,11 +24,11 @@ const projects = [
       title: "Object Detection with Drones",
       description: "Farmers need to keep their corn pure to get the best produce genetics. Therefore, it is critical that corn tassels are collected and removed from the field. Teaming with Purdue's UAV research team, I made over 30 different YOLOv8 tassel detection models for real time identification on our drone",
       image: TasselPhoto,
-      link: "https://github.com/DanielProano/ChessBot_ML"
+      link: ""
    },
    {
       title: "Musical inversion with Python",
-      description: "Ambidexterity is a hard skill to learn for beginner piano players, which is why my Akron startup internship in the Summer of 2025 had me developing symmetrical musical inversion algorithms",
+      description: "Ambidexterity is a hard skill to learn for beginner piano players, which is why my Akron startup internship in the Summer of 2025 had me developing symmetrical music algorithms",
       image: MusicPhoto,
       link: "https://github.com/DanielProano/Lilypond-Parser"
    },
