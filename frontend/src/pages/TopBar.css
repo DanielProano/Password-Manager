@@ -1,57 +1,90 @@
-html, body {
-	margin: 0;
-	padding: 0;
+html,
+body {
+  margin: 0;
+  padding: 0;
 }
 
+@keyframes topbarColorCycle {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 0%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+@keyframes holographic {
+  0% {
+    background-position: 0% 50%;
+    filter: hue-rotate(0deg);
+  }
+  50% {
+    background-position: 100% 50%;
+    filter: hue-rotate(180deg);
+  }
+  100% {
+    background-position: 0% 50%;
+    filter: hue-rotate(360deg);
+  }
+}
 .topbar {
-	background-color: #3a59a1;
-	padding: 20px 20px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	box-shadow: 0 2px 4px rgba(0,0,0,0.4);
-	position: sticky;
-	top: 0;
-	z-index: 1000;
+  background: linear-gradient(90deg, #0f214d 30%, #355cb8 150%);
+  background-size: 200% 200%;
+  padding: 20px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  gap: 20px;
+
+  animation: topbarColorCycle 8s infinite;
 }
 
-.topbar-links {
-	display: flex;
-	gap: 20px;
+.topbar-link {
+  color: #f0f0f0;
+  font-weight: 600;
+  -webkit-background-clip: text;
+  background-clip: text;
+  background: linear-gradient(135deg, #498ceb 0%, #0967eb 50%, #113f80 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+  position: relative;
+  display: inline-block;
 }
 
-.nav-link {
-	color: #ddd;
-	text-decoration: none;
-	font-weight: 600;
-	font-size: 1rem;
-	transition: color 0.3s ease;
+.topbar-link:hover {
+  animation: holographic 2s linear infinite;
 }
 
-.nav-link:hover {
-	color: #a1add4;
-}
-
-.dropdown-projects {
-	position: relative;
-	display:inline-block;
+.dropdown {
+  position: relative;
 }
 
 .dropdown-menu {
-	position: absolute;
-	background-color: #2e3b55;
-	padding: 10px 5px;
-	border-radius: 6px;
-	display: flex;
-	flex-direction: column;
+  position: absolute;
+  background-color: #2e3b55;
+  padding: 10px 5px;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
 }
 
 .dropdown-item {
-	padding: 10px 5px;
-	font-size: 1rem;
-	color: #f0f0f0;
+  padding: 10px 5px;
+  font-size: 1rem;
+  color: #f0f0f0;
 }
 
 .dropdown-item:hover {
-	color: #87a6ed;
+  color: #87a6ed;
 }

@@ -31,14 +31,11 @@ const auth_limiter = rate_limit({
   legacyHeaders: false,
 });
 
-// Let app listen on a port
-
 const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server is running on port ${PORT}`);
 });
-// Use an sqlite3 database
 
 const db = new sqlite3.Database("./passwords.db", (err) => {
   if (err) {
@@ -47,14 +44,14 @@ const db = new sqlite3.Database("./passwords.db", (err) => {
   console.log("Connected to Database");
 });
 
-// Test function to ensure backend can communicate with frontend
-
 app.get("/api/hello", (req, res) => {
-  console.log("Backend hit");
-  res.send("Hello World!!!\n");
+  console.log("Received HelloWorld Request");
+  res.send("Hello World\n");
 });
 
-// Create and store info in a database
+app.get("/api/wakeup", (req, res) => {
+  console.log("Wakeup Backend Request");
+});
 
 db.run(
   `
@@ -77,8 +74,6 @@ app.get("/api/salt", auth_limiter, async (req, res) => {
   if (!user) {
     return res.status(400).json({ message: "Username required" });
   }
-
-  console.log("testing testing");
 
   db.get(
     "SELECT master_salt FROM users WHERE username =?",
@@ -277,7 +272,7 @@ app.get("/api/vault/get", validateToken, async (req, res) => {
   db.all("SELECT * FROM vault WHERE user_id = ?", [user_id], (err, rows) => {
     if (err) {
       console.error("Error while retrieving vault", err.message);
-      return res.status(500).json({ error: "Internal server error2" });
+      return res.status(500).json({ error: "Internal server error" });
     }
     res.status(200).json({ vault: rows });
   });
@@ -296,7 +291,7 @@ app.delete("/api/vault/delete/:id", validateToken, (req, res) => {
   db.run(sql, [userID, vaultID], function (err) {
     if (err) {
       console.error("Error:", err.message);
-      return res.status(500).json({ error: "Internal server error3" });
+      return res.status(500).json({ error: "Internal server error" });
     }
 
     if (this.changes === 0) {

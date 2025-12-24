@@ -1,116 +1,88 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Daniel_pfp from '../assets/Daniel_pfp.JPG';
-import Background from '../assets/Background.svg';
+import PassPhoto from '../assets/PasswordManagerPhoto.png';
+import MusicPhoto from '../assets/MergedScale.png';
+import CryptoPhoto from '../assets/EnigmaMachine.png';
+import TasselPhoto from '../assets/tassels.png';
 import config from "../config.json";
+import "./About.css";
+
+const projects = [
+   {
+      title: "A Modern Zero-Knowledge Password Manager",
+      description: "A traditional password manager can leak your passwords, but not a Zero-Knowledge service. By its nature, this security focused architecture does not know your master password and protects user data even if it is compromised",
+      image: PassPhoto,
+      link: "https://dannyproano.com/login"
+   },
+   {
+      title: "An Evaluation ChessBot with ML",
+      description: "Chess is complex and advantage is as much positional as it is material, so what better way to explore its intricacies than with an ML bot trained on 100 million different positions?",
+      image: "",
+      link: "https://github.com/DanielProano/ChessBot_ML"
+   },
+   {
+      title: "Object Detection with Drones",
+      description: "Farmers need to keep their corn pure to get the best produce genetics. Therefore, it is critical that corn tassels are collected and removed from the field. Teaming with Purdue's UAV research team, I made over 30 different YOLOv8 tassel detection models for real time identification on our drone",
+      image: TasselPhoto,
+      link: "https://github.com/DanielProano/ChessBot_ML"
+   },
+   {
+      title: "Musical inversion with Python",
+      description: "Ambidexterity is a hard skill to learn for beginner piano players, which is why my Akron startup internship in the Summer of 2025 had me developing symmetrical musical inversion algorithms",
+      image: MusicPhoto,
+      link: "https://github.com/DanielProano/Lilypond-Parser"
+   },
+   {
+      title: "History of cryptography",
+      description: "I recreated histories most famous ciphers and encryption algorithms, starting with the Caesar cipher and working up to the Enigma Machine",
+      image: CryptoPhoto,
+      link: "https://github.com/DanielProano/Cryptography"
+   }
+]
+
+async function Start() {
+   try {
+      await fetch(`${config.backend}/api/wakeup`);
+   } catch(err) {
+      console.log("Error: ", err);
+   } 
+}
 
 function About() {
-   const [activeSection, setActiveSection] = useState(null);
-
-   const experience = [
-      {
-         title: "Kundalini Software Internship",
-         year: "2025",
-         description: "Developed code to read and symmetrically invert music in the Lilypond format for a company in Akron"
-      },
-      {
-         title: "PURT - UAV Research",
-         year: "2025",
-         description: "Working in Purdue's world-class indoor research laboratory for UAV research, creating 30+ machine learning models using YOLOv8 for revolutionary object detection in agriculture"
-      },
-      {
-         title: "ChainVisor Research",
-         year: "2025",
-         description: "Semester-long Purdue Research Team finding vulnerabilities in IoT devices. Dissected, exploited, and took control of a Smart Card Reader from 2001"
-      },
-      {
-         title: "Eagle Scout Project",
-         year: "2024",
-         description: "Led 30+ volunteers to restore and rebuild a local dog shelter's 11-foot road sign, including design, construction, and landscaping"
-      }
-   ];
-
-   const skills = {
-      "Languages/Frameworks": "Rust, Python, C/C++, React, Java, Bash, HTML/CSS/JavaScript",
-      "Tools": "Git, Wireshark, Ghidra, Docker, Ubuntu/Linux, AWS, Neovim",
-      "Creative": "Blender, Maya"
-   };
+   useEffect(() => {
+      Start();
+   }, []);
 
    return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-slate-100" style={{
-      backgroundImage: `url(${Background})`,
-      backgroundSize: "cover",
-      backgroundPosition: "center",
-      minHeight: "100vh",
-    }}>
-         <div className="max-w-4xl mx-auto px-6 py-16">
-            <div className="text-center mb-16">
-               <div className="relative inline-block mb-6">
-                  <div className="w-40 h-40 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 p-1">
-                    <img 
-                      src={Daniel_pfp}
-                      alt="Danny's profile"
-                      className="w-full h-full rounded-full object-cover"
-                    />            
-                  </div>
-               </div>
-               <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-               Hi, I'm Danny!
-               </h1>
-               <p className="text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed">
-               Purdue Computer Science student at the intersection of Software Engineering and Cybersecurity
-               </p>
+      <div>
+         <div className="intro-page">
+            <img className="profile-pic" src={Daniel_pfp} alt="test"/>
+            <div className="introduction">
+               Hey! I'm Danny!
             </div>
-
-         {/* About */}
-         <section className="mb-16">
-            <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-8 border border-slate-700/50">
-               <p className="text-lg text-slate-300 leading-relaxed mb-4">
-                  I compete in CTFs, develop software for Purdue's Electrical Racing Team and Autonomous Racing Team, 
-                  and build machine learning applications for Purdue's UAV research team. I also like to do malware 
-                  analysis in my free time!
-               </p>
-               <p className="text-lg text-slate-300 leading-relaxed">
-                  <span className="text-blue-400 font-semibold">Double Major:</span> Computer Science (Software Engineering & Cybersecurity) + Mathematics
-               </p>
+            <div className="sub-introduction">
+               A Purdue Computer Science Student at the intersection of cybersecurity and software engineering
             </div>
-         </section>
-
-         {/* Experience */}
-         <section className="mb-16">
-            <h2 className="text-3xl font-bold mb-6 text-slate-100">Experience</h2>
-            <div className="space-y-4">
-            {experience.map((exp, idx) => (
-               <div 
-                  key={idx}
-                  className="bg-slate-800/30 backdrop-blur-sm rounded-xl p-6 border border-slate-700/30 hover:border-blue-500/50 transition-all duration-300 cursor-pointer"
-                  onClick={() => setActiveSection(activeSection === idx ? null : idx)}>
-                  <div className="flex justify-between items-start mb-2">
-                     <h3 className="text-xl font-semibold text-blue-400">{exp.title}</h3>
-                     <span className="text-sm text-slate-400 bg-slate-700/50 px-3 py-1 rounded-full">{exp.year}</span>
-                  </div>
-                  <p className={`text-slate-300 leading-relaxed transition-all duration-300 ${
-                  activeSection === idx ? 'opacity-100 max-h-40' : 'opacity-70 max-h-20 line-clamp-2'}`}>
-                     {exp.description}
-                  </p>
-               </div>
-            ))}
-            </div>
-         </section>
-
-         {/* Technical Skills */}
-         <section>
-         <h2 className="text-3xl font-bold mb-6 text-slate-100">Technical Skills</h2>
-         <div className="grid gap-4">
-            {Object.entries(skills).map(([category, items], idx) => (
-               <div 
-                key={idx}
-                className="bg-slate-800/30 backdrop-blur-sm rounded-xl p-6 border border-slate-700/30">
-                <h3 className="text-lg font-semibold text-purple-400 mb-3">{category}</h3>
-                <p className="text-slate-300 leading-relaxed">{items}</p>
-               </div>
-            ))}
          </div>
-         </section>
+         <div className="project-page">
+            <div className="project-intro">
+               What have I been working on?
+            </div>
+            <div className="project-container">
+               {projects.map((project, index) => (
+                  <div 
+                     className="project-card" 
+                     key={index} 
+                     onClick={() => window.open(project.link, '_blank')
+                  }>
+                     <img src={project.image}/>
+                     <div className="project-info">
+                        <h3>{project.title}</h3>
+                        <p>{project.description}</p>
+                     </div>
+                  </div>
+               ))}
+            </div>
          </div>
       </div>
    );
