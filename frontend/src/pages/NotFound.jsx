@@ -1,6 +1,8 @@
+import './NotFound.css';
+
 function NotFound() {
 	return (
-		<div>
+		<div className="title">
 			<h1>Page Not Found</h1>
 		</div>
 	);

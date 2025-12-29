@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { use_auth } from '../context/AuthContext';
 import { encrypt, decrypt } from '../context/Encrypt';
+import './Vault.css';
 import config from "../config.json";
 
 function Vault() {	

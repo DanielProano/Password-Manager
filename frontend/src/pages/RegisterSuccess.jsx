@@ -1,13 +1,14 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import './RegisterSuccess.css';
 
 function RegisterSuccess() {
    const navigation = useNavigate();
 
 	return (
-		<div className="flex flex-col justify-center items-center mt-80 text-2xl">
+		<div className="title">
 			<h1>Registration Success</h1>
-         <div className="mt-20">
+         <div className="button">
             <button onClick={() => navigation("/Login")}>Return to Login</button>
          </div>   
 		</div>
