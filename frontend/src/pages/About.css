@@ -71,7 +71,11 @@ body {
 }
 
 .project-card img {
+  height: 30%;
   max-width: 30%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: left center;
   border-radius: 0.75rem;
 }
 

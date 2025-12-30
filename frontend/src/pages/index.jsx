@@ -11,3 +11,4 @@ export { default as Notes } from './Notes';
 export { default as NotFound } from './NotFound';
 export { default as TopBar } from './TopBar';
 export { default as HardwareHacking } from './HardwareHacking';
+export { default as Purt } from './PURT';

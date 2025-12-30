@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 
-import { Home, Login, Register, RegisterSuccess, Blog, About, Vault, Virus, Music, Notes, NotFound, TopBar, HardwareHacking } from './pages/index';
+import { Home, Login, Register, RegisterSuccess, Blog, About, Vault, Virus, Music, Notes, NotFound, TopBar, HardwareHacking, Purt } from './pages/index';
 
 function App() {
 	return (
@@ -19,6 +19,7 @@ function App() {
 					<Route path="/vault" element={<Vault />} />
 					<Route path="/notes" element={<Notes />} />
                <Route path="/HardwareHacking" element={<HardwareHacking />} />
+               <Route path="/Purt" element={<Purt />} />
 					<Route path="/*" element={<NotFound />} />
 				</Routes>
 			</div>

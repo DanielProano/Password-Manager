@@ -31,9 +31,9 @@ body {
   }
 }
 .topbar {
-  background: linear-gradient(90deg, #0f214d 30%, #355cb8 150%);
+  background: linear-gradient(90deg, #1b2040 30%, #1b214d 150%);
   background-size: 200% 200%;
-  padding: 20px 20px;
+  padding: 30px 20px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -52,11 +52,11 @@ body {
   font-weight: 600;
   -webkit-background-clip: text;
   background-clip: text;
-  background: linear-gradient(135deg, #498ceb 0%, #0967eb 50%, #113f80 100%);
+  background: linear-gradient(135deg, #808ee7 0%, #10fff7 100%);
   background-size: 200% 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-size: 1rem;
+  font-size: 1.2rem;
   transition: color 0.3s ease;
   position: relative;
   display: inline-block;
@@ -73,18 +73,23 @@ body {
 .dropdown-menu {
   position: absolute;
   background-color: #2e3b55;
-  padding: 10px 5px;
+  padding: 15px 20px;
   border-radius: 6px;
   display: flex;
   flex-direction: column;
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 .dropdown-item {
-  padding: 10px 5px;
-  font-size: 1rem;
+  padding: 10px 14px;
+  font-size: 1.2rem;
   color: #f0f0f0;
+  white-space: nowrap;
 }
 
 .dropdown-item:hover {
+  background: rgba(135, 166, 237, 0.15);
   color: #87a6ed;
 }

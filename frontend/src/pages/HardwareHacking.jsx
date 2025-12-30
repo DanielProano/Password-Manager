@@ -1,9 +1,15 @@
 import './HardwareHacking.css';
+import Components from "../assets/components.jpeg";
+import Chip from "../assets/chip.jpeg";
+import Network from "../assets/networking.jpeg";
+import SmartCard from "../assets/smart_card.jpeg";
+import Pi from "../assets/Pi.jpeg";
 
 function HardwareHacking() {
    return (
-      <div>
+      <div className="hh">
          <div className="intro-page">
+            <img className="front-photo" src={SmartCard}></img>
             <div className="intro">
                Hardware Hacking into a 2002 Smart Card Reader
             </div>
@@ -25,21 +31,25 @@ function HardwareHacking() {
                <div className="how-step">
                   We first needed to understand the innerworkings of the device itself. We started by carefully removing the plastic shell, unearthing a small mess of wires and chip.
                </div>
+               <img src={Chip}/>
                <div className="how-step">
                   We then took the board to Purdue's ECE shop and analyzed the chip. On it, we discovered:
                </div>
                <div className="how-step">
                   After thoroughly analzying the board, we then decided to attempt to communicate and exploit it. We decided to attack the board's debug port we found, hoping that we could ultimately gain control of the board through it.
                </div>
+               <img src={Pi}/>
                <div className="how-step">
                   To connect to the debug port, we need a few things. The first is a way to talk to the board and port, which was accomplished via hand soldered wires. Next, we needed an OS to consistently communicate over these wired connections. So we decided to flash and setup a Rubic PI, my first ever opporuntity to work with PIs!
                </div>
+               <img src={Components}/>
                <div className="how-step">
                   Dealing with the PI was a real pain, as interesting as it was. We ran into several problems during the PI setup, including the burnout of the memory card, networking permission issues due to Purdue IT department, and problems establishing connection to the WI-FI from the PI.
                </div> 
                <div className="how-step">
                   Despite these frustrations, we powered through until we had a working PI and teaching me a lot about GPIO pins and PIs in the process.
                </div>
+               <img src={Network}/>
                <div className="how-step">
                   Finally, we were able to connect to the PI and begin hitting the Smart Card's debug port, looking for the password that would allow us.
                </div>  

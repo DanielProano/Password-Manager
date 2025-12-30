@@ -3,14 +3,15 @@ import Daniel_pfp from '../assets/Daniel_pfp.JPG';
 import PassPhoto from '../assets/PasswordManagerPhoto.png';
 import MusicPhoto from '../assets/MergedScale.png';
 import CryptoPhoto from '../assets/EnigmaMachine.png';
-import TasselPhoto from '../assets/tassels.png';
+import TasselPhoto from '../assets/tassel_detection.png';
+import SmartPhoto from '../assets/smart_card.jpeg';
 import config from "../config.json";
 import "./About.css";
 
 const projects = [
    {
       title: "A Modern Zero-Knowledge Password Manager",
-      description: "A traditional password manager can leak your passwords, but not a Zero-Knowledge service. By its nature, this security focused architecture does not know your master password and protects user data even if it is compromised",
+      description: "A traditional password manager can leak your passwords, but not a Zero-Knowledge service! This security focused architecture does not know your master password and protects user data even if it is compromised",
       image: PassPhoto,
       link: "https://dannyproano.com/login"
    },
@@ -22,9 +23,15 @@ const projects = [
    },
    {
       title: "Object Detection with Drones",
-      description: "Farmers need to keep their corn pure to get the best produce genetics. Therefore, it is critical that corn tassels are collected and removed from the field. Teaming with Purdue's UAV research team, I made over 30 different YOLOv8 tassel detection models for real time identification on our drone",
+      description: "Farmers need to keep their corn pure for breeding so it is critical that corn tassels are collected and removed from the field. In collaboration with PURT, I made over 30 different YOLOv8 tassel detection models for real time identification on our drone",
       image: TasselPhoto,
-      link: ""
+      link: "https://dannyproano.com/Purt"
+   },
+   {
+      title: "Hardware Hacking a 2002 Card Reader",
+      description: "In collaboration with Purdue's ChainVisor research Team, I did research on how to exploit and take control over a 2002 Smart Card Reader using PIs and bruteforce",
+      image: SmartPhoto,
+      link: "https://dannyproano.com/HardwareHacking"
    },
    {
       title: "Musical inversion with Python",
@@ -37,7 +44,7 @@ const projects = [
       description: "I recreated histories most famous ciphers and encryption algorithms, starting with the Caesar cipher and working up to the Enigma Machine",
       image: CryptoPhoto,
       link: "https://github.com/DanielProano/Cryptography"
-   }
+   },
 ]
 
 async function Start() {
