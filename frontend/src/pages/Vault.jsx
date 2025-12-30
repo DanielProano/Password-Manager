@@ -140,8 +140,8 @@ function Vault() {
 
    return (
       <div>
-         <h1 className="fixed top-15 left-2">Vault</h1>
-         <p className="fixed top-30 left-4">{output}</p>
+         <h1 className="fixed top-20 left-2">Vault</h1>
+         <p className="fixed top-35 left-4">{output}</p>
 
          <div className="fixed bottom-10 right-10">
             <button className="rounded-[24px] border-2 border-[#87a6ed] px-5 py-2.5 text-base font-thin text-[#87a6ed] cursor-pointer transition-colors duration-100 hover:bg-[#394b74]" onClick={(e) => setShowPopup(true)}>+</button>
