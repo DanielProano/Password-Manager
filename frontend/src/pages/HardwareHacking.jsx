@@ -9,7 +9,7 @@ function HardwareHacking() {
    return (
       <div className="hh">
          <div className="intro-page">
-            <img className="front-photo" src={SmartCard}></img>
+            <img className="front-image" src={SmartCard}></img>
             <div className="intro">
                Hardware Hacking into a 2002 Smart Card Reader
             </div>
