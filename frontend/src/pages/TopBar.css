@@ -31,7 +31,7 @@ body {
   }
 }
 .topbar {
-  background: linear-gradient(90deg, #1b2040 30%, #1b214d 150%);
+  background: #274370;
   background-size: 200% 200%;
   padding: 30px 20px;
   display: flex;

@@ -47,6 +47,23 @@ const projects = [
    },
 ]
 
+const skills = [
+   "Python",
+   "C",
+   "C++",
+   "React",
+   "CSS/Tailwind CSS",
+   "Javascript",
+   "Linux",
+   "Windows",
+   "Vim",
+   "R",
+   "Ghidra",
+   "Neovim",
+   "VSCode",
+   "Java",
+]
+
 async function Start() {
    try {
       await fetch(`${config.backend}/api/wakeup`);
@@ -90,6 +107,14 @@ function About() {
                   </div>
                ))}
             </div>
+         </div>
+         <div className="skills-page">
+            <div className="skills-intro">
+               What do I have experience in?
+            </div>
+            <div className="skills-container">
+               Skills go here
+            </div> 
          </div>
       </div>
    );

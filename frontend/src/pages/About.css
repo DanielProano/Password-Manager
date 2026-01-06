@@ -4,12 +4,31 @@ body {
   padding: 0;
 }
 
+@keyframes intro-page-animation {
+  0% {
+    background-position: 0%;
+  }
+  50% {
+    background-position: 100%;
+  }
+  100% {
+    background-position: 0%;
+  }
+}
+
 .intro-page {
   display: flex;
   align-items: center;
   flex-direction: column;
-  background: #121a27;
+
+  background: linear-gradient(45deg, #121a27 0%, #24406e 100%, #121a27 0%);
+
+  background-size: 200%;
+  background-repeat: repeat;
+
   min-height: 90vh;
+
+  animation: intro-page-animation 20s linear infinite;
 }
 
 .profile-pic {
@@ -38,8 +57,7 @@ body {
   display: flex;
   align-items: center;
   flex-direction: column;
-  margin-top: 50px;
-  background: #263345;
+  background: #192430;
   min-height: 100vh;
 }
 
@@ -96,4 +114,21 @@ body {
   line-height: 1.6;
   color: #c4d0e8;
   font-size: 1rem;
+}
+
+.skills-page {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background: #121a26;
+  min-height: 40vh;
+}
+
+.skills-intro {
+  font-size: 50px;
+  margin-top: 5%;
+}
+
+.skills-container {
+  margin: 2%;
 }
