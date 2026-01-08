@@ -1,13 +1,13 @@
-import GroupPhoto from '../assets/group.jpeg';
-import AbovePhoto from '../assets/above_group.jpeg';
-import DronePhoto from '../assets/drone.jpeg';
-import CornPhoto from '../assets/corn.png';
-import GraphsPhoto from '../assets/graphs.jpeg';
-import HandheldPhoto from '../assets/handheld_drone.jpeg';
-import LocationPhoto from '../assets/location.jpeg';
-import DetectPhoto from '../assets/tassel_detection.png';
-import AnnotatePhoto from '../assets/tassel_annotations.png';
-import DroneVideo from '../assets/flight.mp4';
+import GroupPhoto from '../../assets/group.jpeg';
+import AbovePhoto from '../../assets/above_group.jpeg';
+import DronePhoto from '../../assets/drone.jpeg';
+import CornPhoto from '../../assets/corn.png';
+import GraphsPhoto from '../../assets/graphs.jpeg';
+import HandheldPhoto from '../../assets/handheld_drone.jpeg';
+import LocationPhoto from '../../assets/location.jpeg';
+import DetectPhoto from '../../assets/tassel_detection.png';
+import AnnotatePhoto from '../../assets/tassel_annotations.png';
+import DroneVideo from '../../assets/flight.mp4';
 
 import './PURT.css';
 

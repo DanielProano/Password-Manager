@@ -1,0 +1,16 @@
+.chess-page {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.chess-board {
+  width: 50%;
+  height: 50%;
+  position: relative;
+  margin-top: -250px;
+}
+
+.chess-fen {
+  width: 800px;
+}

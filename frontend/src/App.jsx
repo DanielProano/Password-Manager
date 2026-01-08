@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 
-import { Home, Login, Register, RegisterSuccess, Blog, About, Vault, Virus, Music, Notes, NotFound, TopBar, HardwareHacking, Purt } from './pages/index';
+import { Home, PassLogin, PassRegister, PassRegisterSuccess, Blog, About, PassVault, Virus, Music, Notes, NotFound, TopBar, HardwareHacking, Purt, Chess } from './pages/index';
 
 function App() {
 	return (
@@ -9,17 +9,18 @@ function App() {
 			<div className="content">
 				<Routes>
 					<Route path="/" element={<About />} />
-					<Route path="/login" element={<Login />} />
-					<Route path="/register" element={<Register />} />
+					<Route path="/pass/login" element={<PassLogin />} />
+					<Route path="/pass/register" element={<PassRegister />} />
+					<Route path="/pass/vault" element={<PassVault />} />
+					<Route path="/pass/registerSuccess" element={<PassRegisterSuccess />} />
 					<Route path="/blog" element={<Blog />} />
 					<Route path="/about" element={<About />} />
 					<Route path="/virus" element={<Virus />} />
-					<Route path="/registerSuccess" element={<RegisterSuccess />} />
 					<Route path="/music" element={<Music />} />
-					<Route path="/vault" element={<Vault />} />
 					<Route path="/notes" element={<Notes />} />
                <Route path="/HardwareHacking" element={<HardwareHacking />} />
                <Route path="/Purt" element={<Purt />} />
+               <Route path="/Chess" element={<Chess /> } />
 					<Route path="/*" element={<NotFound />} />
 				</Routes>
 			</div>

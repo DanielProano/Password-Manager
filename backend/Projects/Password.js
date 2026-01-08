@@ -18,7 +18,7 @@ module.exports = function (db, auth_limiter) {
     },
   );
 
-  router.get("/api/salt", auth_limiter, async (req, res) => {
+  router.get("/salt", auth_limiter, async (req, res) => {
     const user = req.query.user;
 
     if (!user) {
@@ -39,7 +39,7 @@ module.exports = function (db, auth_limiter) {
 
   // Function for user login
 
-  router.post("/api/register", auth_limiter, async (req, res) => {
+  router.post("/register", auth_limiter, async (req, res) => {
     const { user, hash, master_salt } = req.body;
 
     if (!user || !hash || !master_salt) {
@@ -69,7 +69,7 @@ module.exports = function (db, auth_limiter) {
 
   // Function for verifying login
 
-  router.post("/api/verify", auth_limiter, async (req, res) => {
+  router.post("/verify", auth_limiter, async (req, res) => {
     const { user, hash } = req.body;
 
     try {
@@ -151,7 +151,7 @@ module.exports = function (db, auth_limiter) {
 
   // Stores password info
 
-  router.post("/api/vault/store", validateToken, async (req, res) => {
+  router.post("/vault/store", validateToken, async (req, res) => {
     const { service, login, password, notes } = req.body;
     const userID = req.user.user_id;
 
@@ -181,7 +181,7 @@ module.exports = function (db, auth_limiter) {
 
   // Updates password info
 
-  router.patch("/api/vault/update/:id", validateToken, async (req, res) => {
+  router.patch("/vault/update/:id", validateToken, async (req, res) => {
     const fields = ["service", "login", "password", "notes"];
 
     let updates = [];
@@ -216,7 +216,7 @@ module.exports = function (db, auth_limiter) {
     });
   });
 
-  router.get("/api/vault/get", validateToken, async (req, res) => {
+  router.get("/vault/get", validateToken, async (req, res) => {
     const user_id = req.user.user_id;
 
     db.all("SELECT * FROM vault WHERE user_id = ?", [user_id], (err, rows) => {
@@ -228,11 +228,11 @@ module.exports = function (db, auth_limiter) {
     });
   });
 
-  router.get("/api/me", validateToken, (req, res) => {
+  router.get("/me", validateToken, (req, res) => {
     res.status(200).json({ user_id: req.user.user_id });
   });
 
-  router.delete("/api/vault/delete/:id", validateToken, (req, res) => {
+  router.delete("/vault/delete/:id", validateToken, (req, res) => {
     const userID = req.user.user_id;
     const vaultID = req.params.id;
 

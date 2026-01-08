@@ -2,9 +2,12 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './TopBar.css';
 
+import SigninSvg from '../../assets/signin_person.svg';
+
 function TopBar() {
    const [projectsIsOpen, setProjectsIsOpen] = useState(false);
    const [researchIsOpen, setResearchIsOpen] = useState(false);
+   const [signinIsOpen, setSigninIsOpen] = useState(false);
 
 	return (
 		<header className="topbar">
@@ -16,9 +19,12 @@ function TopBar() {
             
             {projectsIsOpen && (
                <div className="dropdown-menu">
-                  <Link to="/login" className="dropdown-item">
+                  <Link to="/pass/login" className="dropdown-item">
                      Password Manager
                   </Link>
+                  <Link to="/Chess" className="dropdown-item">
+                     Chess
+                  </Link> 
                </div>  
             )}
          </div>
@@ -48,6 +54,25 @@ function TopBar() {
          >
             Github
          </a>
+   
+         <img 
+            className="signin-svg" 
+            src={SigninSvg} 
+            onMouseEnter={() => setSigninIsOpen(true)}
+            onMouseLeave={() => setSigninIsOpen(false)}
+            onClick={() => setSigninIsOpen(o => !o)}
+         />
+         {signinIsOpen && (
+            <div className="app">
+               <div className="signin-dropdown">
+                  <div className="signin-exit"> X </div>
+                  <img className="signin-img"/>
+                  <button className="signin-Button" onClick={() => navigation('/website/login')}> 
+                     Login 
+                  </button>
+               </div>
+            </div>
+         )}
       </header>
 	);
 }

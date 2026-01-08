@@ -94,3 +94,10 @@ body {
   background: rgba(135, 166, 237, 0.15);
   color: #87a6ed;
 }
+
+.signin-svg {
+  width: 45px;
+  height: auto;
+  position: absolute;
+  right: 20px;
+}

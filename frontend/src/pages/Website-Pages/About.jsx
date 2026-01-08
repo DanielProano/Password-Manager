@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import Daniel_pfp from '../assets/Daniel_pfp.JPG';
-import PassPhoto from '../assets/PasswordManagerPhoto.png';
-import MusicPhoto from '../assets/MergedScale.png';
-import CryptoPhoto from '../assets/EnigmaMachine.png';
-import TasselPhoto from '../assets/tassel_detection.png';
-import SmartPhoto from '../assets/smart_card.jpeg';
-import config from "../config.json";
+import Daniel_pfp from '../../assets/Daniel_pfp.JPG';
+import PassPhoto from '../../assets/PasswordManagerPhoto.png';
+import MusicPhoto from '../../assets/MergedScale.png';
+import CryptoPhoto from '../../assets/EnigmaMachine.png';
+import TasselPhoto from '../../assets/tassel_detection.png';
+import SmartPhoto from '../../assets/smart_card.jpeg';
+import config from "../../config.json";
 import "./About.css";
 
 const projects = [
@@ -51,17 +51,20 @@ const skills = [
    "Python",
    "C",
    "C++",
+   "Java",
    "React",
-   "CSS/Tailwind CSS",
+   "R",
+   "CSS/Tailwind",
    "Javascript",
+   "Assembly (ARM)",
    "Linux",
    "Windows",
-   "Vim",
-   "R",
    "Ghidra",
    "Neovim",
    "VSCode",
-   "Java",
+   "Embedded",
+   "PyTorch",
+   "MatLab"
 ]
 
 async function Start() {
@@ -85,7 +88,15 @@ function About() {
                Hey! I'm Danny!
             </div>
             <div className="sub-introduction">
-               A Purdue Computer Science Student at the intersection of cybersecurity and software engineering
+               A Purdue University Computer Science Student
+            </div>
+         </div>
+         <div className="about-page">
+            <div className="about-intro">
+               Who am I?
+            </div>
+            <div className="about-container">
+               Hi! I am a Computer Science and Mathematics double major at Purdue specializing in Systems Engineering and Cybersecurity. In my free time, I compete in cybersecurity, mathematical, and algorithmic competitions, and am involved with Purdue's Electric and Autonomous Racing Teams along with Purdue's Hacking Club.
             </div>
          </div>
          <div className="project-page">
@@ -113,7 +124,11 @@ function About() {
                What do I have experience in?
             </div>
             <div className="skills-container">
-               Skills go here
+            {skills.map((skill, index) => (
+                  <div key={index} className="skills-item">
+                     {skill}
+                  </div>
+               ))}
             </div> 
          </div>
       </div>

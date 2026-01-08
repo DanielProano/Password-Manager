@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { use_auth } from '../context/AuthContext';
-import { derive_key } from '../context/Encrypt';
+import { use_auth } from '../../context/AuthContext';
+import { derive_key } from '../../context/Encrypt';
 import bcrypt from 'bcryptjs';
-import config from "../config.json";
+import config from "../../config.json";
 
 function LoginPage() {
 	const [email, setEmail] = useState('');
@@ -43,7 +43,7 @@ function LoginPage() {
 
 				set_derived_key({ key: key, token: token });
 	
-				navigation('/vault');
+				navigation('/pass/vault');
 			} else {
 				setOutput(data.message || 'Login failed, try again');
 			}
@@ -89,7 +89,7 @@ function LoginPage() {
          </div>
 
          <div className="flex justify-center items-center mt-[20px]">
-            <p>{"Don't have an account?"} <Link to="/register">Register</Link></p>
+            <p>{"Don't have an account?"} <Link to="/pass/register">Register</Link></p>
          </div>
       </div>
       );

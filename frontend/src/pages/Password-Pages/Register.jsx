@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import bcrypt from 'bcryptjs';
-import config from "../config.json";
+import config from "../../config.json";
 
 
 function Register() {
@@ -47,7 +47,7 @@ function Register() {
          });
 
          if (response.ok) {
-            navigate('/RegisterSuccess');
+            navigate('/pass/RegisterSuccess');
          } else {
             setOutput('Couldnt Register');
          }

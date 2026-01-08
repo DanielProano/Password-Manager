@@ -1,9 +1,9 @@
 import './HardwareHacking.css';
-import Components from "../assets/components.jpeg";
-import Chip from "../assets/chip.jpeg";
-import Network from "../assets/networking.jpeg";
-import SmartCard from "../assets/smart_card.jpeg";
-import Pi from "../assets/Pi.jpeg";
+import Components from "../../assets/components.jpeg";
+import Chip from "../../assets/chip.jpeg";
+import Network from "../../assets/networking.jpeg";
+import SmartCard from "../../assets/smart_card.jpeg";
+import Pi from "../../assets/Pi.jpeg";
 
 function HardwareHacking() {
    return (
