@@ -4,13 +4,36 @@
   flex-direction: column;
 }
 
-.chess-board {
-  width: 50%;
-  height: 50%;
+.chess-container {
   position: relative;
-  margin-top: -250px;
+  width: 750px;
+  height: 750px;
+  top: 40px;
+}
+
+.chess-board {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.chess-pieces {
+  position: absolute;
+  inset: 0;
+
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+}
+
+.chess-piece {
+  width: 100%;
+  height: 100%;
 }
 
 .chess-fen {
-  width: 800px;
+  width: 550px;
+  position: absolute;
+  right: 30px;
+  top: 300px;
 }

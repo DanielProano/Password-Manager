@@ -12,17 +12,17 @@ import BlackBishop from "../../assets/bishop-b.svg";
 import BlackKing from "../../assets/king-b.svg";
 import BlackQueen from "../../assets/queen-b.svg";
 
-export const Pieces = [
-   WhitePawn,
-   WhiteRook,
-   WhiteKnight,
-   WhiteBishop,
-   WhiteKing,
-   WhiteQueen,
-   BlackPawn,
-   BlackRook,
-   BlackKnight,
-   BlackBishop,
-   BlackKing,
-   BlackQueen
-]
+export const Pieces = {
+   p: WhitePawn,
+   r: WhiteRook,
+   n: WhiteKnight,
+   b: WhiteBishop,
+   k: WhiteKing,
+   q: WhiteQueen,
+   P: BlackPawn,
+   R: BlackRook,
+   N: BlackKnight,
+   B: BlackBishop,
+   K: BlackKing,
+   Q: BlackQueen
+}
