@@ -7,6 +7,7 @@ import SigninSvg from '../../assets/signin_person.svg';
 function TopBar() {
    const [projectsIsOpen, setProjectsIsOpen] = useState(false);
    const [researchIsOpen, setResearchIsOpen] = useState(false);
+   const [linksIsOpen, setLinksIsOpen] = useState(false);
    const [signinIsOpen, setSigninIsOpen] = useState(false);
 
 	return (
@@ -45,16 +46,34 @@ function TopBar() {
                </div>
             )}
          </div>  
+
+         <div className="dropdown" onMouseEnter={() => setLinksIsOpen(true)} onMouseLeave={() => setLinksIsOpen(false)}>
+            <button onClick={() => setLinksIsOpen(o => !o)} className="topbar-link">
+               Links ▾
+            </button>
+
+            {linksIsOpen && (
+               <div className="dropdown-menu">
+                  <a
+                     href="https://www.linkedin.com/in/daniel-proano-20976b32a/"
+                     target="_blank"
+                     rel="noopener noreferrer"
+                     className="dropdown-item"
+                  >
+                     Linkedin
+                  </a>
+                  <a 
+                     href="https://github.com/DanielProano/DanielProano"
+                     target="_blank"
+                     rel="noopener noreferrer"
+                     className="dropdown-item"
+                  >
+                     Github
+                  </a>
+               </div>
+            )}
+         </div>
          
-         <a 
-            href="https://github.com/DanielProano/DanielProano"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="topbar-link"
-         >
-            Github
-         </a>
-   
          <img 
             className="signin-svg" 
             src={SigninSvg} 

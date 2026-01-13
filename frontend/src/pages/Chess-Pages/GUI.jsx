@@ -6,12 +6,13 @@ import "./GUI.css";
 function Chess() {
    const [fen, setFen] = useState("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
    const [matrix, setMatrix] = useState([]);
+   const [whitePOV, setWhitePOV] = useState(true);
 
-   const fenToMatrix = (fenString) => {
+   function fenToMatrix(fenString) {
       const rows = fenString.split(" ")[0].split("/");
       let newMatrix = [];
 
-      for (let i = 0; i < rows.length; i++) {
+      for (let i = 0; i < 8; i++) {
          const row = [];
          for (let piece of rows[i]) {
             const piece_num = Number(piece);
@@ -28,23 +29,38 @@ function Chess() {
       setMatrix(newMatrix);
    }
 
-   const MatrixToFen = () => {
+   function MatrixToFen() {
+      let fen = "";
 
+      const fenKey = { [Pieces.p]: 'p', [Pieces.n]: 'n', [Pieces.b]: 'b', [Pieces.r]: 'r', [Pieces.k]: 'k', [Pieces.q]: 'q', [Pieces.P]: 'P', [Pieces.N]: 'N', [Pieces.R]: 'R', [Pieces.B]: 'B', [Pieces.K]: 'K', [Pieces.Q]: 'Q' };
+
+      for (let i = 0; i < 8; i++) {
+         let num = 1;
+         for (let j = 0; j < matrix[i].length; j++) {
+            if (matrix[i][j] == null) {
+               fen.append(num);
+               num = 1;
+            }
+            else {
+               fen.append(fenKey[matrix[i][j]]);
+               num += 1;
+            }
+         }
+         fen.append('/');
+      }
+      setFen(fen);
    }
 
-   const displayMatrix = () => {
-      return matrix.map((rows, r) =>
-         rows.map((piece, p) =>
-            piece ? ( 
-               <img
-                  src={piece}
-                  className="chess-piece"
-                  style={{
-                     gridRow: r + 1,
-                     gridColumn: p + 1,
-                  }}
-               />
-            ) : null
+   function displayMatrix() {
+      let renderMatrix = whitePOV ? matrix.slice().reverse() : matrix.map(row => row.slice().reverse());
+
+      return renderMatrix.map((row, r) =>
+         row.map((piece, c) =>
+            <div key={`${r}-${c}`} className="chess-square">
+               {piece && (
+                  <img src={piece} className="chess-piece" />
+               )}
+            </div>
          )
       )
    }

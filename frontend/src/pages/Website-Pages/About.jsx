@@ -64,7 +64,7 @@ const skills = [
    "VSCode",
    "Embedded",
    "PyTorch",
-   "MatLab"
+   "MatPlotLib"
 ]
 
 async function Start() {
