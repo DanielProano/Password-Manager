@@ -43,10 +43,10 @@ const db = new sqlite3.Database("./passwords.db", (err) => {
 });
 
 const passRoutes = require("./Projects/Password.js")(db, auth_limiter);
-const webRoutes = require("./Projects/Website.js")(auth_limiter);
+//const webRoutes = require("./Projects/Website.js")(db, auth_limiter);
 
 app.use("/api", passRoutes);
-app.use("/api/website", webRoutes);
+//app.use("/api/website", webRoutes);
 
 app.get("/api/wakeup", (req, res) => {
   console.log("Wakeup Backend Request");
